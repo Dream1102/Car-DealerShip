@@ -1,0 +1,101 @@
+﻿@model GuildCars.UI.Models.AllInventoryViewModel
+@{
+    ViewBag.Title = "Vehicles";
+}
+
+<div class="row">
+    <div class="col-xs-12" style = "margin-bottom:10px;">
+        <h2>Admin</h2>
+        @Html.ActionLink("Add a new vehicle", "AddVehicle", "Admin")
+    </div>
+</div>
+<div class="row">
+    @using (Html.BeginForm("Index", "Admin", FormMethod.Post, new { id = "searchForm", enctype = "multipart/form-data" }))
+    {
+        <div class="col-xs-12 col-sm-12 col-md-12" style="border:solid; margin-left: 15px; border-width:thin; border-radius: 5px;">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label style="margin-top:5px;">Quick Search</label>
+                    @Html.TextBoxFor(s => s.SalesSearchParameter, new { @class = "form-control", @id = "searchParameter", @placeholder = "Enter make, model, or year" })
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label id="priceLabel">Price</label>
+                    @Html.DropDownListFor(d => d.MinPrice, Model.Prices, "No Min", new { @class = "form-control", @id = "minPrice" })
+                    @Html.DropDownListFor(d => d.MaxPrice, Model.Prices, "No Max", new { @class = "form-control", @id = "maxPrice" })
+                    <button id="search" type="submit" onclick="search()" style="width:270px; margin-top:10px; justify-content:center;" class="btn btn-primary">Search</button>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label id="yearLabel">Year</label>
+                    @Html.DropDownListFor(y => y.MinYear, Model.Years, "No Min", new { @class = "form-control", @id = "minYear" })
+                    @Html.DropDownListFor(y => y.MaxYear, Model.Years, "No Max", new { @class = "form-control", @id = "maxYear" })
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+<div class="row">
+    <div class="col-xs-12">
+        <h2 id="searchHeader">Search Results</h2>
+    </div>
+</div>
+<div id="searchResults" class="row">
+
+</div>
+
+@section Scripts
+{
+    <script>
+        $(document).ready(function () {
+            $('#searchForm').submit(function (e) {
+                search();
+                return false;
+            });
+        });
+
+        function search() {
+
+            var imagePath = '@Url.Content("~/Images/")';
+            var editPath = '@Url.Action("editvehicle", "Admin")/';
+
+            var searchParameters = 'searchParameter=' + $('#searchParameter').val() + '&isSold=false' + '&minPrice=' + $('#minPrice').val() + '&maxPrice=' + $('#maxPrice').val() +
+                '&minYear=' + $('#minYear').val() + '&maxYear=' + $('#maxYear').val();
+
+            $.ajax({
+                type: 'GET',
+                url: 'https://localhost:44355/api/Admin/Vehicles?' + searchParameters,
+                success: function (results) {
+                    $('#searchResults').empty();
+
+                    $.each(results, function (index, vehicle) {
+                        var html = '<div class="col-xs-12 col-sm-12, col-md-12" id="resultDiv">' +
+                            '<div class="col-md-3" id=yearMakeModel><p><strong>' + vehicle.Year + ' ' + vehicle.VehicleModel.Make.MakeName + ' ' + vehicle.VehicleModel.ModelName + '</strong></p>' +
+                            '<img src="' + imagePath + vehicle.ImageFileName + '" class="img-responsive" id="searchImage"/></div>' +
+                            '<div class="col-md-3" id="vehicleSearchResult"><table><tr><td><strong>Body Style: </strong>' + vehicle.BodyStyle.BodyStyleName + '</td></tr>' +
+                            '<tr><td><strong>Trans: </strong>' + vehicle.TransmissionType.TransmissionTypeName + '</td></tr>' +
+                            '<tr><td><strong>Color: </strong>' + vehicle.ExteriorColor.ExteriorColorName + '</td></tr></table></div>' +
+                            '<div class="col-md-3" id="vehicleSearchResult2"><table><tr><td><strong>Interior: </strong>' + vehicle.InteriorColor.InteriorColorName + '</td></tr>' +
+                            '<tr><td><strong>Mileage: </strong>' + vehicle.Mileage + '</td></tr>' +
+                            '<tr><td><strong>VIN #: </strong>' + vehicle.VehicleId + '</td></tr></table></div>' +
+                            '<div class="col-md-3" id="vehicleSearchResult3"><table><tr><td><strong>Sale Price: </strong>$' + vehicle.ListedPrice + '</td></tr>' +
+                            '<tr><td><strong>MSRP: </strong>$' + vehicle.MSRP + '</td></tr></table>' +
+                            '<a href="' + editPath + vehicle.VehicleId + '"><button type="submit" style="float:right; margin-right: 30px; margin-bottom: 15px; margin-top:20px;" class="btn btn-primary">Edit</button></a></div>'
+
+                        $('#searchResults').append(html.toString());
+                    })
+                },
+                error: function () {
+                    alert('Error performing search, try again later!')
+                }
+            });
+        }
+
+
+    </script>
+}
+
+

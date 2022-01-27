@@ -1,0 +1,31 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+@if (Request.IsAuthenticated && User.IsInRole("Admin"))
+{
+    <div class="row">
+        <div class="col-xs-12">
+            <h2>Reports</h2>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12" style="margin-top: 10px">
+            @Html.ActionLink("Inventory Report", "Inventory", "Reports")
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12" style="margin-top: 10px">
+            @Html.ActionLink("Sales Report", "Sales", "Reports")
+        </div>
+    </div>
+}
+
+else
+{
+    <p><strong> You don't have access to this page.</strong></p>
+}
+
+
+

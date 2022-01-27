@@ -1,0 +1,27 @@
+﻿@model List<GuildCars.Models.Tables.Special>
+
+@{
+    ViewBag.Title = "Specials";
+}
+
+<div class="row">
+    <div class="col-xs-12">
+        <h2>Specials</h2>
+    </div>
+</div>
+@foreach (var special in Model)
+{
+    <div class="row">
+        <div class="col-xs-12 col-md-12" id="specialsDiv">
+            <div class="col-xs-12 col-md-2">
+                    <img src="@Url.Content("~/Images/" + special.SpecialImageFilename)" class="img-responsive">
+            </div>
+            <div class="col-xs-12 col-md-10">
+                <h3 id="specialName">@special.SpecialName</h3>
+                <p>@special.SpecialDescription</p>
+            </div>
+        </div>
+    </div>
+}
+
+

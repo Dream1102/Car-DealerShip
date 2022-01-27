@@ -1,0 +1,49 @@
+﻿@model GuildCars.UI.Models.UsersViewModel
+
+@{
+    ViewBag.Title = "Users";
+}
+
+@if (Request.IsAuthenticated && User.IsInRole("Admin"))
+{
+    <div class="row">
+        <div class="col-xs-12">
+            <h2>Users</h2>
+            @Html.ActionLink("Add a new User", "AddUser", "Admin")
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12" style="border-radius:5px">
+            <table class="table table-striped" style="border:solid; border-width: thin; border-radius: 5px; margin-top: 20px;">
+                <thead>
+                    <tr style="background-color:gray">
+                        <td style="border-right:solid; border-width:thin;"><strong>Last Name</strong></td>
+                        <td style="border-right: solid; border-width: thin;"><strong>First Name</strong></td>
+                        <td style="border-right: solid; border-width: thin;"><strong>Email</strong></td>
+                        <td style="border-right: solid; border-width: thin;"><strong>Role</strong></td>
+                        <td style="border-right: solid; border-width: thin;"></td>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var user in Model.Users)
+                    {
+                        <tr>
+                            <td style="border-right:solid; border-width:thin;">@user.LastName</td>
+                            <td style="border-right:solid; border-width:thin;">@user.FirstName</td>
+                            <td style="border-right:solid; border-width:thin;">@user.Email</td>
+                            <td style="border-right:solid; border-width:thin;">@user.Role</td>
+                            <td style="border-right:solid; border-width:thin;">@Html.ActionLink("edit", "EditUser", "Admin", new { userId = user.Id }, null)</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+}
+else
+{
+    <div class="col-md-12">
+        <p><strong>You don't have access to this page.</strong></p>
+    </div>
+
+}

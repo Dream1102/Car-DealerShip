@@ -1,0 +1,14 @@
+C:\Users\Jamie\source\repos\online-net-2021-sewy44\Summatives\DDWA-Mastery\GuildCars\GuildCars.Tests\bin\Debug\GuildCars.Tests.dll.config
+C:\Users\Jamie\source\repos\online-net-2021-sewy44\Summatives\DDWA-Mastery\GuildCars\GuildCars.Tests\bin\Debug\GuildCars.Tests.dll
+C:\Users\Jamie\source\repos\online-net-2021-sewy44\Summatives\DDWA-Mastery\GuildCars\GuildCars.Tests\bin\Debug\GuildCars.Tests.pdb
+C:\Users\Jamie\source\repos\online-net-2021-sewy44\Summatives\DDWA-Mastery\GuildCars\GuildCars.Tests\bin\Debug\GuildCars.Data.dll
+C:\Users\Jamie\source\repos\online-net-2021-sewy44\Summatives\DDWA-Mastery\GuildCars\GuildCars.Tests\bin\Debug\GuildCars.Models.dll
+C:\Users\Jamie\source\repos\online-net-2021-sewy44\Summatives\DDWA-Mastery\GuildCars\GuildCars.Tests\bin\Debug\nunit.framework.dll
+C:\Users\Jamie\source\repos\online-net-2021-sewy44\Summatives\DDWA-Mastery\GuildCars\GuildCars.Tests\bin\Debug\GuildCars.Data.pdb
+C:\Users\Jamie\source\repos\online-net-2021-sewy44\Summatives\DDWA-Mastery\GuildCars\GuildCars.Tests\bin\Debug\GuildCars.Models.pdb
+C:\Users\Jamie\source\repos\online-net-2021-sewy44\Summatives\DDWA-Mastery\GuildCars\GuildCars.Tests\bin\Debug\nunit.framework.xml
+C:\Users\Jamie\source\repos\online-net-2021-sewy44\Summatives\DDWA-Mastery\GuildCars\GuildCars.Tests\obj\Debug\GuildCars.Tests.csproj.AssemblyReference.cache
+C:\Users\Jamie\source\repos\online-net-2021-sewy44\Summatives\DDWA-Mastery\GuildCars\GuildCars.Tests\obj\Debug\GuildCars.Tests.csproj.CoreCompileInputs.cache
+C:\Users\Jamie\source\repos\online-net-2021-sewy44\Summatives\DDWA-Mastery\GuildCars\GuildCars.Tests\obj\Debug\GuildCars.Tests.csproj.CopyComplete
+C:\Users\Jamie\source\repos\online-net-2021-sewy44\Summatives\DDWA-Mastery\GuildCars\GuildCars.Tests\obj\Debug\GuildCars.Tests.dll
+C:\Users\Jamie\source\repos\online-net-2021-sewy44\Summatives\DDWA-Mastery\GuildCars\GuildCars.Tests\obj\Debug\GuildCars.Tests.pdb

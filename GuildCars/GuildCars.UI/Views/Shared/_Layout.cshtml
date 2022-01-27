@@ -1,0 +1,81 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - GuildCars</title>
+    <link href="~/Content/Site.css" rel="stylesheet" />
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a href="@Url.Action("Index", "Home")">
+                    <img src="@Url.Content("~/Images/GuildLogo.JPG")" class="img-circle" style="height: 30px; margin-top:10px;">
+                </a>
+               
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav mr-auto">
+                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                    <li>@Html.ActionLink("New Inventory", "New", "Inventory")</li>
+                    <li>@Html.ActionLink("Used Inventory", "Used", "Inventory")</li>
+                    <li>@Html.ActionLink("Specials", "Specials", "Home")</li>
+                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                    @if (Request.IsAuthenticated && User.IsInRole("Sales"))
+                    {
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" role="button" data-toggle="dropdown" id="dropdownMenuLink" aria-haspopup="true" aria-expanded="false">Sales</a>
+
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                <a class="dropdown-item">@Html.ActionLink("Sales", "Index", "Sales")</a>
+                            </div>
+                        </li>
+                    }
+                    @if (Request.IsAuthenticated && User.IsInRole("Admin"))
+                    {
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Sales</a>
+
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item">@Html.ActionLink("Makes", "Makes", "Sales")</a>
+                                <br />
+                                <a class="dropdown-item">@Html.ActionLink("Models", "Models", "Sales")</a>
+                            </div>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Admin</a>
+
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item">@Html.ActionLink("Vehicles", "Vehicles", "Admin")</a>
+                                    <br />
+                                    <a class="dropdown-item">@Html.ActionLink("Users", "Users", "Admin")</a>
+                                    <br />
+                                    <a class="dropdown-item">@Html.ActionLink("Specials", "Specials", "Admin")</a>
+                                    <br />
+                                    <a class="dropdown-item">@Html.ActionLink("Reports", "Index", "Reports")</a>
+                                </div>
+                            </li>
+                        }
+                            </ul>
+                @Html.Partial("_LoginPartial")
+            </div>
+        </div>
+    </div>
+    <div class="container body-content">
+        @RenderBody()
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

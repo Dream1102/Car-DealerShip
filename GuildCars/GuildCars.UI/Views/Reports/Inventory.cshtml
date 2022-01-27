@@ -1,0 +1,88 @@
+﻿@model List<GuildCars.Models.Queries.InventoryReportItem>
+
+@{
+    ViewBag.Title = "Inventory";
+}
+
+@if(Request.IsAuthenticated && User.IsInRole("Admin"))
+{
+
+  
+<div class="row">
+    <div class="col-xs-12">
+        <h2>Inventory Report</h2>
+    </div>
+</div>
+<div class="row">
+    <div class="col-xs-12">
+        <p><strong>New Vehicles</strong></p>
+    </div>
+    
+    <div class="col-xs-12 col-sm-12 col-md-5" style="border-radius:5px">
+        <table class="table table-striped" style="border:solid; border-width: thin; border-radius: 5px;">
+            <thead class="thead-dark">
+                <tr style="background-color:gray">
+                    <td style="border-right:solid; border-width:thin;"><strong>Year</strong></td>
+                    <td style="border-right:solid; border-width:thin;"><strong>Make</strong></td>
+                    <td style="border-right:solid; border-width:thin;"><strong>Model</strong></td>
+                    <td style="border-right:solid; border-width:thin;"><strong>Count</strong></td>
+                    <td style="border-right:solid; border-width:thin;"><strong>Stock Value</strong></td>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    if (item.IsUsed == false)
+                    {
+                        <tr>
+                            <td style="border-right:solid; border-width:thin;">@item.Year</td>
+                            <td style="border-right:solid; border-width:thin;">@item.Make</td>
+                            <td style="border-right:solid; border-width:thin;">@item.Model</td>
+                            <td style="border-right:solid; border-width:thin;">@item.Count</td>
+                            <td style="border-right:solid; border-width:thin;">@item.StockValue.ToString("c0")</td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="row">
+    <div class="col-xs-12">
+        <p><strong>Used Vehicles</strong></p>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-5" style="border-radius:5px">
+        <table class="table table-striped" style="border:solid; border-width: thin; border-radius: 5px;">
+            <thead>
+                <tr style="background-color:gray">
+                    <td style="border-right:solid; border-width:thin;"><strong>Year</strong></td>
+                    <td style="border-right:solid; border-width:thin;"><strong>Make</strong></td>
+                    <td style="border-right:solid; border-width:thin;"><strong>Model</strong></td>
+                    <td style="border-right:solid; border-width:thin;"><strong>Count</strong></td>
+                    <td style="border-right:solid; border-width:thin;"><strong>Stock Value</strong></td>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    if (item.IsUsed == true)
+                    {
+                        <tr>
+                            <td style="border-right:solid; border-width:thin;">@item.Year</td>
+                            <td style="border-right:solid; border-width:thin;">@item.Make</td>
+                            <td style="border-right:solid; border-width:thin;">@item.Model</td>
+                            <td style="border-right:solid; border-width:thin;">@item.Count</td>
+                            <td style="border-right:solid; border-width:thin;">@item.StockValue.ToString("c0")</td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+}
+else
+{
+<p><strong> You don't have access to this page.</strong></p>
+}
+

@@ -1,0 +1,91 @@
+﻿@model GuildCars.Models.Tables.Vehicle
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<div class="row">
+    <div class="col-xs-12" style="margin-left:15px">
+        <h2>Vehicle Details</h2>
+    </div>
+</div>
+<div class="container" id="detailsDiv">
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-3" id="vehicleThumbnail">
+            <p><strong>@Model.Year @Model.VehicleModel.Make.MakeName @Model.VehicleModel.ModelName</strong></p>
+            <div>
+                <img id="vehicleThumbnailImage" src="@Url.Content("~/Images/" + Model.ImageFileName)" class="img-responsive" />
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-3" id="vehicleInfo1">
+            <table>
+                <tbody>
+                    <tr>
+                        <td><strong>Body Style: </strong>@Model.BodyStyle.BodyStyleName</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Trans: </strong>@Model.TransmissionType.TransmissionTypeName</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Color: </strong>@Model.ExteriorColor.ExteriorColorName</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-3" id="vehicleInfo2">
+            <table>
+                <tbody>
+                    <tr>
+                        <td><strong>Interior: </strong>@Model.InteriorColor.InteriorColorName</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <strong>Mileage: </strong>@if (Model.Mileage <= 1000)
+                            {
+                                <text>New</text>
+                            }
+                            else
+                            {
+                                @Model.Mileage;
+                            }
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><strong>VIN #: </strong>@Model.VehicleId</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-3" id="vehiclePricing">
+            <table>
+                <tbody>
+                    <tr>
+                        <td><strong>Sale Price: </strong>@(Model.ListedPrice.ToString("c0"))</td>
+                    </tr>
+                    <tr>
+                        <td><strong>MSRP: </strong>@Model.MSRP.ToString("c0")</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12 col-md-12" id="vehicleDescription">
+            <p><strong>Description: </strong>@Model.Description</p>
+        </div>
+    </div>
+    <div class="row">
+        @if (Model.IsSold == false)
+        {
+            <button type="button" class="btn btn-default" style="float:right; margin-right: 30px; margin-bottom: 15px;" onclick="location.href='@Url.Action("Contact", "Home", new { id = Model.VehicleId } )'">Contact Us</button>
+        }
+        else
+        {
+            <p style="float:right; margin-right: 30px; margin-bottom: 15px;"><strong>Unavailable-Sold</strong></p>
+        }
+
+    </div>
+
+</div>
+
+

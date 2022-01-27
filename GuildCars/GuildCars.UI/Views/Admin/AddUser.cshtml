@@ -1,0 +1,121 @@
+﻿@model GuildCars.UI.Models.AddUserViewModel
+
+@{
+    ViewBag.Title = "AddUser";
+}
+
+@if (Request.IsAuthenticated && User.IsInRole("Admin"))
+{
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12">
+            <div class="col-md-4">
+                <h2 id="pageTitle">Add User</h2>
+            </div>
+        </div>
+    </div>
+    using (Html.BeginForm("AddUser", "Admin", FormMethod.Post, new { @id = "formAddUser", enctype = "multipart/form-data", onsubmit = "return validateForm()" }))
+    {
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12">
+                @Html.ValidationSummary("", new { @class = "validationSummary" })
+                <div class="col-md-4">
+                    <label id="fName"><strong>First Name</strong></label>
+                    @Html.TextBoxFor(v => v.User.FirstName, new { @class = "form-control", @id="firstName" })
+                </div>
+                <div class="col-md-4">
+                    <label id="lName"><strong>Last Name</strong></label>
+                    @Html.TextBoxFor(v => v.User.LastName, new { @class = "form-control", @id="lastName" })
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12">
+                <div class="col-md-4">
+                    <label id="email"><strong>Email</strong></label>
+                    @Html.TextBoxFor(v => v.User.Email, new { @class = "form-control", @id="userEmail" })
+                </div>
+                <div class="col-md-4">
+                    <label><strong>Role</strong></label>
+                    @Html.DropDownListFor(v => v.User.Role, Model.Roles, new { @class = "form-control", @style = "width:110px" })
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12">
+                <div class="col-md-4">
+                    <label id="nPassword"><strong>Password</strong></label>
+                    @Html.TextBoxFor(v => v.NewPassword, new { @class = "form-control", @id="newPassword", @type="password" })
+                </div>
+                <div class="col-md-4">
+                    <label id="cPassword"><strong>Confirm Password</strong></label>
+                    @Html.TextBoxFor(v => v.ConfirmPassword, new { @class = "form-control", @id="confirmPassword", @type = "password" })
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12">
+                <div class="col-md-4">
+                    <button onclick="return validateForm()" type="submit" class="btn btn-primary">Save</button>
+                </div>
+            </div>
+        </div>
+    }
+}
+else
+{
+    <div class="col-md-12">
+        <p><strong>You don't have access to this page.</strong></p>
+    </div>
+
+}
+
+@section Scripts
+{
+    <script>
+            $(document).ready(function () {
+                console.log('ready');
+
+            });
+
+            function validateForm() {
+                $('#formAddUser').submit(function(e){
+
+                    var firstName = $('#firstName').val();
+                    var lastName = $('#lastName').val();
+                    var userEmail = $('#userEmail').val();
+                    var newPassword = $('#newPassword').val();
+                    var confirmPassword = $('#confirmPassword').val();
+
+                    $(".error").remove();
+                    if (firstName.length < 1) {
+                        $('#fName').after('<span class="error">  This field is required.</span>');
+                        e.preventDefault();
+                    }
+                    if (lastName.length < 1) {
+                        $('#lName').after('<span class="error">  This field is required.</span>');
+                        e.preventDefault();
+                    }
+                    if (userEmail.length < 1) {
+                        $('#email').after('<span class="error">  This field is required.</span>');
+                        e.preventDefault();
+                    }
+                    if (newPassword.length < 1) {
+                        $('#nPassword').after('<span class="error">  This field is required.</span>');
+                        e.preventDefault();
+                    }
+                    if (confirmPassword.length < 1) {
+                        $('#cPassword').after('<span class="error">  This field is required.</span>');
+                        e.preventDefault();
+                    }
+                    if (newPassword.length > 0 && confirmPassword.length > 0) {
+                        if (newPassword != confirmPassword) {
+                            $('#pageTitle').after('<span class="error">  Passwords do not match!</span>');
+                            e.preventDefault();
+                        }
+                    }
+                })
+            };
+
+    </script>
+
+}

@@ -1,0 +1,265 @@
+﻿@model GuildCars.UI.Models.EditVehicleViewModel
+
+@{
+    ViewBag.Title = "EditVehicle";
+}
+<div class="row">
+    <div class="col-xs-12">
+        <div class="col-md-4">
+            <h2>Edit Vehicle</h2>
+        </div>
+
+    </div>
+</div>
+@using (Html.BeginForm("EditVehicle", "Admin", FormMethod.Post, new { enctype = "multipart/form-data", @id = "editVehicleForm", onsubmit = "return validateForm()" }))
+{
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12">
+            @Html.ValidationSummary("", new { @class = "validationSummary" })
+            <div class="col-md-4">
+                <label>Make</label>
+                @Html.DropDownListFor(v => v.Vehicle.VehicleModel.Make.MakeId, Model.MakeList, new { @class = "form-control", @id = "vehicleMake" })
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label>Model</label>
+                    <select class="form-control" id="vehicleModel" name="Vehicle.VehicleModel.ModelId"></select>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12">
+            <div class="col-md-4">
+                <label>Type</label>
+                @Html.DropDownListFor(v => v.Vehicle.IsUsed, Model.IsUsed, new { @class = "form-control" })
+
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label>BodyStyle</label>
+                    @Html.DropDownListFor(v => v.Vehicle.BodyStyle.BodyStyleId, Model.BodyStyleList, new { @class = "form-control" })
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12">
+            <div class="col-md-4">
+                <label id="year">Year</label>
+                @Html.TextBoxFor(v => v.Vehicle.Year, new { @class = "form-control", @id = "vehicleYear" })
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label>Transmission</label>
+                    @Html.DropDownListFor(v => v.Vehicle.TransmissionType.TransmissionTypeId, Model.TransmissionTypeList, new { @class = "form-control" })
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12">
+            <div class="col-md-4">
+                <label>Color</label>
+                @Html.DropDownListFor(v => v.Vehicle.ExteriorColor.ExteriorColorId, Model.ExteriorColorList, new { @class = "form-control" })
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label>Interior</label>
+                    @Html.DropDownListFor(v => v.Vehicle.InteriorColor.InteriorColorId, Model.InteriorColorList, new { @class = "form-control" })
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12">
+            <div class="col-md-4">
+                <label id="mileage">Mileage</label>
+                @Html.TextBoxFor(v => v.Vehicle.Mileage, new { @class = "form-control", @id = "vehicleMileage" })
+                @Html.ValidationMessageFor(v => v.Vehicle.Mileage)
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label id="vin">VIN #</label>
+                    @Html.TextBoxFor(v => v.Vehicle.VehicleId, new { @class = "form-control", @id = "vehicleVIN" })
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12">
+            <div class="col-md-4">
+                <label id="msrp">MSRP</label>
+                @Html.TextBoxFor(v => v.Vehicle.MSRP, new { @class = "form-control", @id = "vehicleMSRP" })
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label id="price">Sale Price</label>
+                    @Html.TextBoxFor(v => v.Vehicle.ListedPrice, new { @class = "form-control", @id = "vehiclePrice" })
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12" id="descriptionDiv" style="margin-left: 13px">
+            <label id="desc">Description</label>
+            <br />
+            @Html.TextAreaFor(v => v.Vehicle.Description, new { @class = "form-control", @id = "vDescription" })
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <img id="vehicleThumbnailImage" src="@Url.Content("~/Images/" + Model.Vehicle.ImageFileName)" class="img-responsive" style="margin-left: 13px; margin-bottom: 15px; border-radius: 5px;" />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label>Replace Picture</label>
+                    <input id="Vehicle.ImageUpload" name=@Html.NameFor(v=> v.ImageUpload) type="file" class="form-control" />
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row" style="margin-left: 15px">
+        <div class="checkbox">
+            <label>
+                @Html.CheckBoxFor(v => v.Vehicle.IsFeatured) <strong>Feature this vehicle</strong>
+            </label>
+        </div>
+    </div>
+}
+<div class="col-md-1" style="float:left; margin-right:0px;">
+    @using (Html.BeginForm("DeleteVehicle", "Admin", new { @id = Model.Vehicle.VehicleId },FormMethod.Post))
+    {
+        @Html.HiddenFor(v => v.Vehicle.VehicleModel.Make.MakeId)
+        @Html.HiddenFor(v => v.Vehicle.IsUsed)
+        @Html.HiddenFor(v => v.Vehicle.BodyStyle.BodyStyleId)
+        @Html.HiddenFor(v => v.Vehicle.Year)
+        @Html.HiddenFor(v => v.Vehicle.TransmissionType.TransmissionTypeId)
+        @Html.HiddenFor(v => v.Vehicle.ExteriorColor.ExteriorColorId)
+        @Html.HiddenFor(v => v.Vehicle.InteriorColor.InteriorColorId)
+        @Html.HiddenFor(v => v.Vehicle.Mileage)
+        @Html.HiddenFor(v => v.Vehicle.MSRP)
+        @Html.HiddenFor(v => v.Vehicle.ListedPrice)
+        @Html.HiddenFor(v => v.Vehicle.Description)
+        @Html.HiddenFor(v => v.Vehicle.ImageFileName)
+        @Html.HiddenFor(v => v.Vehicle.VehicleId)
+
+        <button class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this vehicle?');">Delete</button>
+    }
+</div>
+<div class="col-md-1" style="float:left; padding-left:0px;">
+    <!--<input type="submit" class="btn btn-primary" onclick="validateForm()" value="Save" form="editVehicleForm" />-->
+    <button class="btn btn-primary" onclick="return validateForm()" form="editVehicleForm">Save</button>
+</div>
+
+
+
+@section Scripts
+    {
+    <script>
+        $(document).ready(function () {
+            loadModels();
+            loadInitialModelList();
+        });
+
+        function validateForm() {
+            $('#editVehicleForm').submit(function (e) {
+                var vehicleYear = $('#vehicleYear').val();
+                var vehicleMileage = $('#vehicleMileage').val();
+                var vehicleVin = $('#vehicleVIN').val();
+                var vehicleMSRP = $('#vehicleMSRP').val();
+                var vehiclePrice = $('#vehiclePrice').val();
+                var vehicleDescription = $('#vDescription').val();
+                var image = $('#Vehicle.ImageUpload').val();
+
+                $('.error').remove();
+                if (vehicleYear.length < 1) {
+                    $('#year').after('<span class="error">  This field is required.</span>');
+                    e.preventDefault();
+                } if (vehicleMileage.length < 1) {
+                    $('#mileage').after('<span class="error">  This field is required.</span>');
+                    e.preventDefault();
+                }
+                if (vehicleVin.length < 1) {
+                    $('#vin').after('<span class="error">  This field is required.</span>');
+                    e.preventDefault();
+                }
+                if (vehicleMSRP.length < 1) {
+                    $('#msrp').after('<span class="error">  This field is required.</span>');
+                    e.preventDefault();
+                }
+                if (vehiclePrice.length < 1) {
+                    $('#price').after('<span class="error">  This field is required.</span>');
+                    e.preventDefault();
+                }
+                if (vehicleDescription.length < 1) {
+                    $('#desc').after('<span class="error">  This field is required.</span>');
+                    e.preventDefault();
+                }
+                if (vehicleDescription.length > 500) {
+                    $('#desc').after('<span class="error"> Description can be no longer than 500 characters.</span>');
+                    e.preventDefault();
+                }
+                if (image.length < 1) {
+                    $('#picture').after('<span class="error">  An image is required.</span>');
+                    e.preventDefault();
+                }
+            })
+        };
+
+        function loadInitialModelList() {
+            var makeId = $('#vehicleMake').val();
+            $('#vehicleModel').empty();
+            var html;
+
+            $.ajax({
+                type: 'GET',
+                url: 'https://localhost:44355/api/Admin/AddVehicle/' + makeId,
+                success: function (models) {
+                    $('#vehicleModel').empty();
+
+                    $.each(models, function (index, vehicleModel) {
+                        html += '<option value="' + vehicleModel.ModelId + '">' + vehicleModel.ModelName + '</option>'
+
+                    })
+                    $('#vehicleModel').append(html.toString());
+
+                },
+                error: function () {
+                    alert('Error loading models. Try again later!')
+                }
+            });
+        }
+
+        function loadModels() {
+            $('#vehicleMake').change(function () {
+                var makeId = $(this).val();
+                $('#vehicleModel').empty();
+                var html;
+                $.ajax({
+                    type: 'GET',
+                    url: 'https://localhost:44355/api/Admin/AddVehicle/' + makeId,
+                    success: function (models) {
+                        $('#vehicleModel').empty();
+
+                        $.each(models, function (index, vehicleModel) {
+                            html += '<option value="' + vehicleModel.ModelId + '">' + vehicleModel.ModelName + '</option>'
+
+                        })
+                        $('#vehicleModel').append(html.toString());
+
+                    },
+                    error: function () {
+                        alert('Error loading models. Try again later!')
+                    }
+                });
+            })
+        }
+    </script>
+
+}
+
+

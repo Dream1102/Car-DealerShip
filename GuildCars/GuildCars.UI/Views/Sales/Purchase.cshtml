@@ -1,0 +1,269 @@
+﻿@model GuildCars.UI.Models.PurchaseVehicleViewModel
+
+@{
+    ViewBag.Title = "Purchase";
+
+}
+
+@if (Request.IsAuthenticated && User.IsInRole("Sales"))
+{
+    <div class="row">
+        <div class="col-xs-12 col-md-12">
+            <div class="col-md-4">
+                <h2>Purchase Vehicle</h2>
+            </div>
+        </div>
+    </div>
+
+    <div class="row" id="detailsDiv">
+        <div class="col-xs-12 col-sm-12 col-md-12">
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-3" id="vehicleThumbnail">
+                    <p><strong>@Model.Vehicle.Year @Model.Vehicle.VehicleModel.Make.MakeName @Model.Vehicle.VehicleModel.ModelName</strong></p>
+                    <div>
+                        <img id="vehicleThumbnailImage" src="@Url.Content("~/Images/" + Model.Vehicle.ImageFileName)" class="img-responsive" />
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-3" id="vehicleInfo1">
+                    <table>
+                        <tbody>
+                            <tr>
+                                <td><strong>Body Style: </strong>@Model.Vehicle.BodyStyle.BodyStyleName</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Trans: </strong>@Model.Vehicle.TransmissionType.TransmissionTypeName</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Color: </strong>@Model.Vehicle.ExteriorColor.ExteriorColorName</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-3" id="vehicleInfo2">
+                    <table>
+                        <tbody>
+                            <tr>
+                                <td><strong>Interior: </strong>@Model.Vehicle.InteriorColor.InteriorColorName</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <strong>Mileage: </strong>@if (Model.Vehicle.Mileage <= 1000)
+                                    {
+                                        <text>New</text>
+                                    }
+                                    else
+                                    {
+                                        @Model.Vehicle.Mileage;
+                                    }
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><strong>VIN #: </strong>@Model.Vehicle.VehicleId</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-3" id="vehiclePricing">
+                    <table>
+                        <tbody>
+                            <tr>
+                                <td><strong>Sale Price: </strong>@(Model.Vehicle.ListedPrice.ToString("c0"))</td>
+                            </tr>
+                            <tr>
+                                <td><strong>MSRP: </strong>@Model.Vehicle.MSRP.ToString("c0")</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-md-12" id="vehicleDescription">
+                <p><strong>Description: </strong>@Model.Vehicle.Description</p>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12 col-md-12">
+            <div class="col-md-4">
+                <h2>Sales Information</h2>
+            </div>
+        </div>
+    </div>
+
+    using (Html.BeginForm("Purchase", "Sales", FormMethod.Post, new { @id = "purchaseForm", enctype = "multipart/form-data", onsubmit = "return validateForm()" }))
+    {
+
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12">
+                @Html.ValidationSummary("", new { @class = "validationSummary" })
+                @Html.HiddenFor(c => c.Vehicle.VehicleId)
+                @Html.HiddenFor(c => c.Vehicle.VehicleModel.ModelName)
+                @Html.HiddenFor(c => c.Vehicle.VehicleModel.ModelId)
+                @Html.HiddenFor(c => c.Vehicle.InteriorColor.InteriorColorName)
+                @Html.HiddenFor(c => c.Vehicle.InteriorColor.InteriorColorId)
+                @Html.HiddenFor(c => c.Vehicle.ExteriorColor.ExteriorColorName)
+                @Html.HiddenFor(c => c.Vehicle.ExteriorColor.ExteriorColorId)
+                @Html.HiddenFor(c => c.Vehicle.BodyStyle.BodyStyleId)
+                @Html.HiddenFor(c => c.Vehicle.BodyStyle.BodyStyleName)
+                @Html.HiddenFor(c => c.Vehicle.Mileage)
+                @Html.HiddenFor(c => c.Vehicle.Year)
+                @Html.HiddenFor(c => c.Vehicle.MSRP)
+                @Html.HiddenFor(c => c.Vehicle.ListedPrice)
+                @Html.HiddenFor(c => c.Vehicle.Description)
+                @Html.HiddenFor(c => c.Vehicle.ImageFileName)
+                @Html.HiddenFor(c => c.Vehicle.IsFeatured)
+                @Html.HiddenFor(c => c.Vehicle.IsUsed)
+                @Html.HiddenFor(c => c.Vehicle.IsSold)
+                @Html.HiddenFor(c => c.Vehicle.VehicleModel.Make.MakeId)
+                @Html.HiddenFor(c => c.Vehicle.VehicleModel.Make.MakeName)
+                @Html.HiddenFor(c => c.Vehicle.TransmissionType.TransmissionTypeId)
+                @Html.HiddenFor(c => c.Vehicle.TransmissionType.TransmissionTypeName)
+                @Html.HiddenFor(c => c.Vehicle.DateAdded)
+                @Html.HiddenFor(c => c.Vehicle.UserEmail)
+
+                <div class="col-md-4" style="margin-left:0px">
+                    <div class="form-group">
+                        <label id="name">Name</label>
+                        @Html.TextBoxFor(c => c.Customer.CustomerName, new { @class = "form-control", @id = "customerName", @name = "customerName" })
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label id="phone">Phone</label>
+                        @Html.TextBoxFor(c => c.Customer.CustomerPhone, new { @class = "form-control", @id = "customerPhone" })
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label id="email">Email</label>
+                        @Html.TextBoxFor(c => c.Customer.CustomerEmail, new { @class = "form-control", @id = "customerEmail" })
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label id="street1">Street 1</label>
+                        @Html.TextBoxFor(c => c.Customer.CustomerAddress1, new { @class = "form-control", @id = "customerAddress1" })
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>Street 2</label>
+                        @Html.TextBoxFor(c => c.Customer.CustomerAddress2, new { @class = "form-control" })
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label id="city">City</label>
+                        @Html.TextBoxFor(c => c.Customer.City, new { @class = "form-control", @id = "customerCity" })
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>State</label>
+                        @Html.DropDownListFor(c => c.Customer.State.StateAbbreviation, Model.States, new { @class = "form-control", @style = "width:70px" })
+                    </div>
+                </div>
+            </div>
+        </div> <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label id="zip">Zipcode</label>
+                        @Html.TextBoxFor(c => c.Customer.Zip, new { @class = "form-control", @id = "zipCode" })
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr />
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label id="price">Purchase Price</label>
+                        @Html.TextBoxFor(c => c.PurchasePrice, new { @class = "form-control", @id = "purchasePrice" })
+                        <button class="btn btn-primary" type="submit" onclick="return validateForm()">Save</button>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>Purchase Type</label>
+                        @Html.DropDownListFor(c => c.PurchaseType, Model.PurchaseTypes, new { @class = "form-control", @style = "width: 150px;" })
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+}
+else
+{
+    <p><strong> You don't have access to this page.</strong></p>
+}
+
+@section Scripts
+{
+    <script>
+        $(document).ready(function () {
+            console.log('ready');
+        });
+
+        function validateForm() {
+            $('#purchaseForm').submit(function (e) {
+                var name = $('#customerName').val();
+                var phone = $('#customerPhone').val();
+                var email = $('#customerEmail').val();
+                var street1 = $('#customerAddress1').val();
+                var city = $('#customerCity').val();
+                var zip = $('#zipCode').val();
+                var price = $('#purchasePrice').val();
+
+                $('.error').remove();
+                if (name.length < 1) {
+                    $('#name').after('<span class="error">  This field is required.</span>');
+                    e.preventDefault();
+                }
+                if (phone.length < 1 || email.length < 1) {
+                    $('#email').after('<span class="error">  An email OR a phone number are required.</span>');
+                    e.preventDefault();
+                }
+                if (street1.length < 1) {
+                    $('#street1').after('<span class="error">  This field is required.</span>');
+                    e.preventDefault();
+                }
+                if (city.length < 1) {
+                    $('#city').after('<span class="error">  This field is required.</span>');
+                    e.preventDefault();
+                }
+                if (zip.length < 1) {
+                    $('#zip').after('<span class="error">  This field is required.</span>');
+                    e.preventDefault();
+                }
+                if (price.length < 1) {
+                    $('#price').after('<span class="error">  This field is required.</span>');
+                    e.preventDefault();
+                }
+            })
+        }
+    </script>
+}
+
+
+
+
+
+
+
+
+

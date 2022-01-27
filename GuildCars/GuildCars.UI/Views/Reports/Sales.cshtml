@@ -1,0 +1,132 @@
+﻿@model GuildCars.UI.Models.SalesReportViewModel
+
+@{
+    ViewBag.Title = "Sales";
+}
+
+@if (Request.IsAuthenticated && User.IsInRole("Admin"))
+{
+
+
+    <div class="row">
+        <div class="col-xs-12">
+            <h2 id="pageTitle">Sales Report</h2>
+        </div>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-10" style="border:solid; border-width:thin; border-radius: 5px;">
+        @using (Html.BeginForm("Sales", "Reports", FormMethod.Post, new { @id = "searchForm", enctype = "multipart/form-data", onsubmit = "return validateForm()" }))
+        {
+            <div class="row">
+                <div class=col-md-1 style="margin-top:5px;">
+                    <p><strong>Filters</strong></p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-1" style="margin-top:5px;">
+                    <p><strong>User</strong></p>
+                </div>
+                <div class="col-md-2">
+                    @Html.DropDownListFor(u => u.User, Model.UserList, "- All -", new { @class = "form-control", @id = "UserEmail" })
+                </div>
+                <div class="col-md-3">
+                    <label style="display:inline-block; text-align:right; margin-top:5px;"><strong>From Date</strong></label>
+                    @Html.TextBoxFor(u => u.MinDate, new { @class = "form-control", @Value = Model.MinDate.ToString(), @id = "FromDate", @style = "width:110px; float:right;" })
+                </div>
+                <div class="col-md-3" ;">
+                    <label style="display: inline-block; text-align: right; margin-top: 5px; "><strong>To Date</strong></label>
+                    @Html.TextBoxFor(u => u.MaxDate, new { @class = "form-control", @Value = Model.MinDate.ToString(), @id = "ToDate", @style = "width:110px; float:right;" })
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    <button id="search" onclick="return validateForm()" type="submit" style="width:270px; margin-top:10px; margin-bottom:10px; justify-content:center;" class="btn btn-primary">Search</button>
+                </div>
+            </div>
+
+        }
+
+
+    </div>
+
+    <div class="row">
+        <div class="col-xs-12" id="results" style="margin-top:10px;">
+            <p><strong>Search Results</strong></p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-5" style="border-radius:5px" id="table">
+            <table class="table table-striped" style="border:solid; border-width: thin; border-radius: 5px;">
+                <thead>
+                    <tr style="background-color:gray">
+                        <td style="border-right:solid; border-width:thin;"><strong>User</strong></td>
+                        <td style="border-right:solid; border-width:thin;"><strong>Total Sales</strong></td>
+                        <td style="border-right:solid; border-width:thin;"><strong>Total Vehicles</strong></td>
+                    </tr>
+                </thead>
+                <tbody id="searchResults">
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+}
+else
+{
+    <p><strong> You don't have access to this page.</strong></p>
+
+}
+
+@section Scripts{
+    <script>
+        $(document).ready(function () {
+            $('#results').hide();
+            $('#table').hide();
+        });
+
+        function validateForm() {
+            $('#searchForm').submit(function (e) {
+                var fromDate = $('#FromDate').val();
+                var toDate = $('#ToDate').val();
+
+                $('#results').hide();
+                $('#table').hide();
+
+                $(".error").remove();
+                if (fromDate.length > 0 && fromDate.length != 10 || toDate.length > 0 && toDate.length != 10) {
+                    $('#pageTitle').after('<span class="error"> valid date format is MM/DD/YYYY.</span>');
+                    e.preventDefault();
+                }
+                else {
+                    search();
+                    return false;
+                }
+            })
+        }
+
+        function search() {
+            var searchParameters = 'userEmail=' + $('#UserEmail').val() + '&fromDate=' + $('#FromDate').val() + '&toDate=' + $('#ToDate').val();
+
+            $.ajax({
+                type: 'GET',
+                url: 'https://localhost:44355/api/Reports/Sales?' + searchParameters,
+                success: function (results) {
+                    $('#searchResults').empty();
+                    $('#results').show();
+                    $('#table').show();
+
+
+                    $.each(results, function (index, report) {
+                        var html = '<tr><td style="border-right:solid; border-width:thin;">' + report.User + '</td>' +
+                            '<td style="border-right:solid; border-width:thin;">$' + report.TotalSales.toString() + '</td>' +
+                            '<td style="border-right:solid; border-width:thin;">' + report.TotalVehicles + '</td></tr>'
+
+                        $('#searchResults').append(html.toString());
+                    })
+                },
+                error: function () {
+                    alert('Error performing search, try again later!')
+                }
+            });
+        }
+    </script>
+}

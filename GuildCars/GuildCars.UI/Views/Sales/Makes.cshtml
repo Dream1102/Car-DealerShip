@@ -1,0 +1,84 @@
+﻿@model GuildCars.UI.Models.MakesViewModel
+
+@{
+    ViewBag.Title = "Makes";
+}
+
+<div class="row">
+    <div class="col-xs-12">
+        <h2 id="pageTitle">Makes</h2>
+    </div>
+</div>
+@if (Request.IsAuthenticated && User.IsInRole("Admin"))
+{
+    using (Html.BeginForm("Makes", "Sales", FormMethod.Post, new { @id = "formAddMake", enctype = "multipart/form-data", onsubmit = "return validateForm()" }))
+    {
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12" style="border:solid; border-radius: 5px; margin-left: 15px;border-width:thin; padding-top: 20px;">
+                <div class="col-md-1" style="margin-right:0px;padding-right:0px; margin-top: 5px;">
+                    <p><strong>New Make</strong></p>
+                </div>
+                <div class="col-md-3" style="margin-left:0px;">
+                    @Html.TextBoxFor(m => m.Make.MakeName, new { @class = "form-control", @id = "makeName" })
+                </div>
+                <div class="col-md-1">
+                    <button class="btn btn-primary" onclick="return validateForm()" type="submit">Save</button>
+                </div>
+
+                @Html.ValidationSummary("", new { @class = "validationSummary" })
+            </div>
+        </div>
+    }
+}
+else
+{
+    <p><strong> You don't have access to this page.</strong></p>
+}
+
+
+<div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-5">
+        <table class="table table-striped" style="border:solid; border-width: thin; border-radius: 5px; margin-top: 20px;">
+            <thead>
+                <tr style="background-color:gray">
+                    <td style="border-right:solid; border-width:thin;"><strong>Make</strong></td>
+                    <td style="border-right: solid; border-width: thin;"><strong>Date Added</strong></td>
+                    <td style="border-right: solid; border-width: thin;"><strong>User</strong></td>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var make in Model.Makes)
+                {
+                    <tr>
+                        <td style="border-right:solid; border-width:thin;">@make.MakeName</td>
+                        <td style="border-right:solid; border-width:thin;">@make.DateMakeCreated.Date.ToString("MM/dd/yyyy")</td>
+                        <td style="border-right:solid; border-width:thin;">@make.UserEmail</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+@section Scripts
+{
+    <script>
+        $(document).ready(function () {
+            console.log('ready');
+
+        });
+
+        function validateForm() {
+            $('#formAddMake').submit(function(e) {
+                var makeName = $('#makeName').val();
+
+                $(".error").remove();
+                if (makeName.length < 1) {
+                    $('#pageTitle').after('<span class="error"> New Make field is required.</span>');
+                    e.preventDefault();
+                }
+            })
+    };
+    </script>
+}

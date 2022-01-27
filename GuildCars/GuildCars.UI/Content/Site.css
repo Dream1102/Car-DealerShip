@@ -1,0 +1,180 @@
+﻿body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+
+.vehicleDetails{
+   text-align:center;
+   border:solid;
+   border-width:thin;
+   margin-bottom: 10px;
+   margin-top: 10px;
+   border-radius: 5px;
+}
+.vehicleImage{
+    width: 100%;
+    height: 100%;
+}
+
+#detailsDiv {
+    border: solid;
+    border-width: thin;
+    border-radius: 5px;
+    margin-left: 15px;
+}
+
+#specialsDiv{
+    border: solid;
+    border-width: thin;
+    margin-bottom: 15px;
+    border-radius: 5px;
+}
+
+.img-responsive{
+    margin-top: 15px;
+    margin-bottom: 50px;
+}
+
+#specialName{
+    margin-top: 15px;
+}
+
+#vehicleThumbnail{
+    margin-top: 10px;
+    margin-left:10px;
+    width: 20%;
+}
+
+#vehicleThumbnailImage{
+    width: 50%;
+}
+
+#vehicleInfo1 {
+    margin-top:40px;
+    float: left;
+    margin-bottom: 0px;
+}
+
+#vehicleInfo2 {
+    margin-top: 40px;
+    float: left;
+}
+
+#vehiclePricing {
+    margin-top: 40px;
+    float: left;
+}
+
+#vehicleDescription {
+    margin-left: 255px;
+    margin-bottom: 10px;
+}
+
+#map{
+    height:275px;
+    width: 50%;
+    margin-bottom: 5px;
+}
+
+#jumbotron {
+    background: linear-gradient(red,white,black);
+    border-radius: 5px;
+}
+
+#caption{
+    color: black;
+}
+
+#priceLabel,#yearLabel{
+    float: left;
+    margin-top: 30px;
+    margin-right: 5px;
+    margin-left: 0px;
+    justify-content: left;
+}
+
+#minPrice, #minYear{
+    width: 100px;
+    float: left;
+    margin-top:25px;
+    margin-right: 25px;
+}
+
+#maxPrice, #maxYear {
+    float: left;
+    margin-top: 25px;
+    width:100px;
+}
+
+#resultDiv {
+    border: solid;
+    border-width: thin;
+    margin-bottom: 15px;
+    border-radius: 5px;
+    margin-left: 15px;
+}
+
+#searchImage{
+    border-radius: 5px;
+    width: 50%;
+    margin-bottom: 10px;
+}
+
+#yearMakeModel{
+    margin-top: 5px;
+}
+
+.form-control{
+    margin-bottom: 20px;
+}
+
+#description {
+    max-width: 100%;
+    height: 150px;
+    width: 660px;
+    padding: 0px;
+    float:left;
+    margin-left: 0px;
+}
+
+#imageDiv{
+    padding-left: 0px;
+}
+
+#vehicleSearchResult, #vehicleSearchResult2, #vehicleSearchResult3{
+    margin-top: 35px;
+}
+
+.validationSummary ul {
+    list-style-type:none;
+    color:red;
+}
+
+.error{
+    color:red;
+}
+
+.dropdown-item{
+    color: black;
+    text-align:center;
+}

@@ -1,0 +1,92 @@
+﻿@model GuildCars.UI.Models.SpecialsViewModel
+
+@{
+    ViewBag.Title = "Specials";
+}
+
+<div class="row">
+    <div class="col-xs-12">
+        <h2 id="pageTitle">Specials</h2>
+    </div>
+</div>
+@if (Request.IsAuthenticated && User.IsInRole("Admin"))
+{
+    using (Html.BeginForm("Specials", "Admin", FormMethod.Post, new { id = "formAddSpecials", enctype = "multipart/form-data", onsubmit = "return validateForm()" }))
+    {
+        <div class="col-xs-12 col-sm-12 col-md-12" style="border:solid; border-width:thin; margin-bottom: 30px; border-radius: 5px;">
+            <div class="row" style="margin-top:10px;">
+                <div class="col-md-1">
+                    <label style="margin-top:10px;">Title</label>
+                </div>
+                <div class="col-md-4" style="margin-right:0px; margin-top:5px;">
+                    @Html.TextBoxFor(s => s.Special.SpecialName, new { @class = "form-control", @id="sName" })
+                </div>
+                <div class="col-md-1">
+                    <label style="margin-top:10px;">Picture</label>
+                </div>
+                <div class="col-md-4" style="margin-right: 0px; margin-top: 5px;">
+                    <input id="Speciale.ImageUpload" name=@Html.NameFor(s => s.ImageUpload) type="file" class="form-control" />
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-1">
+                    <label>Description</label>
+                </div>
+                <div class="col-md-4">
+                    @Html.TextAreaFor(s => s.Special.SpecialDescription, new { @class = "form-control", @id="specialDescription" })
+                    <button class="btn btn-primary" style="margin-bottom:10px;" onclick="return validateForm()" type="submit">Save</button>
+                </div>
+            </div>
+        </div>
+
+        @Html.ValidationSummary("", new { @class = "validationSummary" })
+    }
+    foreach (var special in Model.SpecialsList)
+    {
+        using (Html.BeginForm("DeleteSpecial", "Admin", new { id = @special.SpecialId }, FormMethod.Post))
+        {
+            <div class="row" style="margin-left:0px; margin-right: 5px;">
+                <div class="col-xs-12 col-md-12" id="specialsDiv">
+                    <div class="col-xs-12 col-md-2" style="border-radius:5px;">
+                        <img src="@Url.Content("~/Images/" + special.SpecialImageFilename)" class="img-responsive">
+                    </div>
+                    <div class="col-xs-12 col-md-10">
+                        <h3 id="specialName">@special.SpecialName</h3>
+                        <p>@special.SpecialDescription</p>
+                        <button style="position:absolute; top:0; right:0; margin-top: 10px;" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this Special?');">Delete</button>
+                    </div>
+                </div>
+            </div>
+        }
+    }
+}
+
+@section Scripts
+{
+    <script>
+        $(document).ready(function () {
+            console.log('ready');
+
+        });
+
+        function validateForm() {
+            $('#formAddSpecials').submit(function (e) {
+                var specialName = $('#sName').val();
+                var description = $('#specialDescription').val();
+
+                $(".error").remove();
+                if (specialName.length < 1) {
+                    $('#pageTitle').after('<span class="error"> Title field is required.</span>');
+                    e.preventDefault();
+                }
+                if (description.length < 1) {
+                    $('#pageTitle').after('<span class="error"> Description field is required.</span>');
+                    e.preventDefault();
+                } if (description.length > 500) {
+                    $('#pageTitle').after('<span class="error"> Description can be no more than 500 characters.</span>');
+                    e.preventDefault();
+                }
+            })
+        };
+    </script>
+}
