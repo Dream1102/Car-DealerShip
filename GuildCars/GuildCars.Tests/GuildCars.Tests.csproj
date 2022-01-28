@@ -48,7 +48,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IntegrationTests\RepositoryTestsADO.cs" />
+    <Compile Include="ADO Tests\RepositoryTestsADO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="QA Tests\RepositoryTestsQA.cs" />
   </ItemGroup>
