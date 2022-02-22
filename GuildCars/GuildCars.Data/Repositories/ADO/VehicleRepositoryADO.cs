@@ -240,8 +240,8 @@ namespace GuildCars.Data.Repositories.ADO.VehicleTables
             List<Vehicle> vehicles = new List<Vehicle>();
             decimal minPrice = parameters.MinPrice.HasValue ? parameters.MinPrice.Value : 0;
             decimal maxPrice = parameters.MaxPrice.HasValue ? parameters.MaxPrice.Value : 999999;
-            decimal minYear = parameters.MinYear.HasValue ? parameters.MinYear.Value : 1920;
-            decimal maxYear = parameters.MaxYear.HasValue ? parameters.MaxYear.Value : 2500;
+            int minYear = parameters.MinYear.HasValue ? parameters.MinYear.Value : 1920;
+            int maxYear = parameters.MaxYear.HasValue ? parameters.MaxYear.Value : 2500;
 
             using (var cn = new SqlConnection(Settings.GetConnectionString()))
             {

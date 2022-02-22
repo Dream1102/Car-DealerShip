@@ -362,44 +362,10 @@ namespace GuildCars.Data.Repositories.QA
 
         public List<Vehicle> AnonymousUserVehicleSearch(VehicleSearchParameters parameters)
         {
-            decimal minPrice = 0;
-            decimal maxPrice = 999999;
-            int minYear = 1920;
-            int maxYear = 3000;
-
-            if(parameters.MinPrice.HasValue || parameters.MaxPrice.HasValue)
-            {
-                if(!parameters.MaxPrice.HasValue)
-                {
-                    parameters.MaxPrice = maxPrice;
-                }
-                if (!parameters.MinPrice.HasValue)
-                {
-                    parameters.MinPrice = minPrice;
-                }
-            }
-            else
-            {
-                parameters.MinPrice = minPrice;
-                parameters.MaxPrice = maxPrice;
-            }
-
-            if(parameters.MinYear.HasValue || parameters.MaxYear.HasValue)
-            {
-                if (!parameters.MaxYear.HasValue)
-                {
-                    parameters.MaxYear = maxYear;
-                }
-                if (!parameters.MinYear.HasValue)
-                {
-                    parameters.MinYear = minYear;
-                }
-            }
-            else
-            {
-                parameters.MinYear = minYear;
-                parameters.MaxYear = maxYear;
-            }
+            decimal minPrice = parameters.MinPrice.HasValue ? parameters.MinPrice.Value : 0;
+            decimal maxPrice = parameters.MaxPrice.HasValue ? parameters.MaxPrice.Value : 999999;
+            int minYear = parameters.MinYear.HasValue ? parameters.MinYear.Value : 1920;
+            int maxYear = parameters.MaxYear.HasValue ? parameters.MaxYear.Value : 2500;
 
             if (string.IsNullOrEmpty(parameters.SearchParameter))
             {
@@ -424,44 +390,10 @@ namespace GuildCars.Data.Repositories.QA
 
         public List<Vehicle> SalesUserVehicleSearch(SalesVehicleSearchParameters parameters)
         {
-            decimal minPrice = 0;
-            decimal maxPrice = 999999;
-            int minYear = 1920;
-            int maxYear = 3000;
-
-            if (parameters.MinPrice.HasValue || parameters.MaxPrice.HasValue)
-            {
-                if (!parameters.MaxPrice.HasValue)
-                {
-                    parameters.MaxPrice = maxPrice;
-                }
-                if (!parameters.MinPrice.HasValue)
-                {
-                    parameters.MinPrice = minPrice;
-                }
-            }
-            else
-            {
-                parameters.MinPrice = minPrice;
-                parameters.MaxPrice = maxPrice;
-            }
-
-            if (parameters.MinYear.HasValue || parameters.MaxYear.HasValue)
-            {
-                if (!parameters.MaxYear.HasValue)
-                {
-                    parameters.MaxYear = maxYear;
-                }
-                if (!parameters.MinYear.HasValue)
-                {
-                    parameters.MinYear = minYear;
-                }
-            }
-            else
-            {
-                parameters.MinYear = minYear;
-                parameters.MaxYear = maxYear;
-            }
+            decimal minPrice = parameters.MinPrice.HasValue ? parameters.MinPrice.Value : 0;
+            decimal maxPrice = parameters.MaxPrice.HasValue ? parameters.MaxPrice.Value : 999999;
+            int minYear = parameters.MinYear.HasValue ? parameters.MinYear.Value : 1920;
+            int maxYear = parameters.MaxYear.HasValue ? parameters.MaxYear.Value : 2500;
 
             if (string.IsNullOrEmpty(parameters.SearchParameter))
             {
