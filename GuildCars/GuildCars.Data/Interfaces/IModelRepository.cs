@@ -10,7 +10,7 @@ namespace GuildCars.Data.Interfaces.VehicleTables
 {
     public interface IModelRepository
     {
-        List<VehicleModel> GetModels();
-        void Insert(VehicleModel model);
+        List<VehicleModel> GetAllVehicleModels();
+        void InsertVehicleModel(VehicleModel model);
     }
 }

@@ -38,7 +38,7 @@ namespace GuildCars.Data.Repositories.QA
             _contactRequests.Add(request2);
         }
 
-        public List<ContactRequest> GetAll()
+        public List<ContactRequest> GetAllContactRequests()
         {
             List<ContactRequest> contactRequests = new List<ContactRequest>();
 
@@ -49,7 +49,7 @@ namespace GuildCars.Data.Repositories.QA
             return contactRequests;
         }
 
-        public void Insert(ContactRequest contactRequest)
+        public void InsertContactRequest(ContactRequest contactRequest)
         {
             _contactRequests.Add(contactRequest);
         }

@@ -7,3 +7,7 @@ C:\Users\Jamie\source\repos\online-net-2021-sewy44\Summatives\DDWA-Mastery\Guild
 C:\Users\Jamie\source\repos\online-net-2021-sewy44\Summatives\DDWA-Mastery\GuildCars\GuildCars.Data\obj\Debug\GuildCars.Data.csproj.CopyComplete
 C:\Users\Jamie\source\repos\online-net-2021-sewy44\Summatives\DDWA-Mastery\GuildCars\GuildCars.Data\obj\Debug\GuildCars.Data.dll
 C:\Users\Jamie\source\repos\online-net-2021-sewy44\Summatives\DDWA-Mastery\GuildCars\GuildCars.Data\obj\Debug\GuildCars.Data.pdb
+C:\Users\Jamie\source\repos\sewy44-personal-public\CarDealership\CarDealership\GuildCars\GuildCars.Data\obj\Debug\GuildCars.Data.csproj.AssemblyReference.cache
+C:\Users\Jamie\source\repos\sewy44-personal-public\CarDealership\CarDealership\GuildCars\GuildCars.Data\obj\Debug\GuildCars.Data.csproj.CoreCompileInputs.cache
+C:\Users\Jamie\source\repos\sewy44-personal-public\CarDealership\CarDealership\GuildCars\GuildCars.Data\obj\Debug\GuildCars.Data.dll
+C:\Users\Jamie\source\repos\sewy44-personal-public\CarDealership\CarDealership\GuildCars\GuildCars.Data\obj\Debug\GuildCars.Data.pdb

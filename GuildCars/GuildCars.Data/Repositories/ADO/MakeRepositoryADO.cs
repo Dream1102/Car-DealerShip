@@ -12,7 +12,7 @@ namespace GuildCars.Data.Repositories.ADO.VehicleTables
 {
     public class MakeRepositoryADO : IMakeRepository
     {
-        public List<Make> GetMakes()
+        public List<Make> GetAllVehicleMakes()
         {
             List<Make> makes = new List<Make>();
 
@@ -38,7 +38,7 @@ namespace GuildCars.Data.Repositories.ADO.VehicleTables
             return makes;
         }
 
-        public void Insert(Make make)
+        public void InsertVehicleMake(Make make)
         {
             using (var cn = new SqlConnection(Settings.GetConnectionString()))
             {

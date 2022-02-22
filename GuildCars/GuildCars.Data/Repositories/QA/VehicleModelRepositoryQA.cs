@@ -123,7 +123,7 @@ namespace GuildCars.Data.Repositories.QA
         }
             
 
-        public List<VehicleModel> GetModels()
+        public List<VehicleModel> GetAllVehicleModels()
         {
             List<VehicleModel> models = new List<VehicleModel>();
 
@@ -135,7 +135,7 @@ namespace GuildCars.Data.Repositories.QA
             return models;
         }
 
-        public void Insert(VehicleModel model)
+        public void InsertVehicleModel(VehicleModel model)
         {
             _models.Add(model);
         }

@@ -9,6 +9,6 @@ namespace GuildCars.Data.Interfaces
 {
     public interface IStateRepository
     {
-        List<State> GetStates();
+        List<State> GetAllStates();
     }
 }

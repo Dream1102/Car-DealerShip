@@ -297,7 +297,7 @@ namespace GuildCars.Data.Repositories.QA
             _vehicles.Add(vehicle10);
         }
 
-        public void Delete(string vehicleId)
+        public void DeleteVehicle(string vehicleId)
         {
             List<Vehicle> vehicles = new List<Vehicle>();
 
@@ -324,7 +324,7 @@ namespace GuildCars.Data.Repositories.QA
             return vehicles;
         }
 
-        public Vehicle GetById(string vehicleId)
+        public Vehicle GetVehicleById(string vehicleId)
         {
             foreach(var vehicle in _vehicles)
             {
@@ -336,7 +336,7 @@ namespace GuildCars.Data.Repositories.QA
             return null;
         }
 
-        public List<Vehicle> GetFeatured()
+        public List<Vehicle> GetFeaturedVehicles()
         {
             List<Vehicle> featuredVehicles = new List<Vehicle>();
 
@@ -350,17 +350,17 @@ namespace GuildCars.Data.Repositories.QA
             return featuredVehicles;
         }
 
-        public void Insert(Vehicle vehicle)
+        public void InsertVehicle(Vehicle vehicle)
         {
             _vehicles.Add(vehicle);
         }
 
-        public void Update(Vehicle vehicle)
+        public void UpdateVehicle(Vehicle vehicle)
         {
             vehicle = _vehicles.Where(v => v.VehicleId == vehicle.VehicleId).FirstOrDefault();
         }
 
-        public List<Vehicle> VehicleSearch(VehicleSearchParameters parameters)
+        public List<Vehicle> AnonymousUserVehicleSearch(VehicleSearchParameters parameters)
         {
             decimal minPrice = 0;
             decimal maxPrice = 999999;
@@ -422,7 +422,7 @@ namespace GuildCars.Data.Repositories.QA
             } 
         }
 
-        public List<Vehicle> SalesVehicleSearch(SalesVehicleSearchParameters parameters)
+        public List<Vehicle> SalesUserVehicleSearch(SalesVehicleSearchParameters parameters)
         {
             decimal minPrice = 0;
             decimal maxPrice = 999999;
@@ -516,11 +516,11 @@ namespace GuildCars.Data.Repositories.QA
             return inventoryReport;                          
         }
 
-        public List<SelectListItem> GetYears(bool isUsed)
+        public List<SelectListItem> GetYearsOfVehiclesInInventory(bool isUsed)
         {
             var searchParams = new VehicleSearchParameters();
             searchParams.IsUsed = isUsed;
-            var vehicles = VehicleSearch(searchParams).OrderBy(y => y.Year);
+            var vehicles = AnonymousUserVehicleSearch(searchParams).OrderBy(y => y.Year);
 
             List<int> vehicleYears = new List<int>();
 

@@ -12,7 +12,7 @@ namespace GuildCars.Data.Repositories.ADO
 {
     public class StateRepositoryADO : IStateRepository
     {
-        public List<State> GetStates()
+        public List<State> GetAllStates()
         {
             List<State> states = new List<State>();
 

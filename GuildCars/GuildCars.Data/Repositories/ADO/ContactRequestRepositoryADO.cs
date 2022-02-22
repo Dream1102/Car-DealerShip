@@ -12,7 +12,7 @@ namespace GuildCars.Data.Repositories.ADO
 {
     public class ContactRequestRepositoryADO : IContactRequestRepository
     {
-        public List<ContactRequest> GetAll()
+        public List<ContactRequest> GetAllContactRequests()
         {
             List<ContactRequest> contactRequests = new List<ContactRequest>();
 
@@ -42,7 +42,7 @@ namespace GuildCars.Data.Repositories.ADO
             return contactRequests;
         }
 
-        public void Insert(ContactRequest contactRequest)
+        public void InsertContactRequest(ContactRequest contactRequest)
         {
             using (var cn = new SqlConnection(Settings.GetConnectionString()))
             {

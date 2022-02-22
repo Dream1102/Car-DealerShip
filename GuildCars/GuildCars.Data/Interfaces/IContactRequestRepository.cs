@@ -9,7 +9,7 @@ namespace GuildCars.Data.Interfaces
 {
     public interface IContactRequestRepository
     {
-        List<ContactRequest> GetAll();
-        void Insert(ContactRequest contactRequest);
+        List<ContactRequest> GetAllContactRequests();
+        void InsertContactRequest(ContactRequest contactRequest);
     }
 }

@@ -62,15 +62,15 @@ namespace GuildCars.Data.Repositories.QA
             purchase.PurchasePrice = 10000;
             purchase.UserEmail = "jamie@guildcars.com";
 
-            Insert(purchase);
+            InsertPurchase(purchase);
         }
 
-        public void Insert(Purchase purchase)
+        public void InsertPurchase(Purchase purchase)
         {
             _purchases.Add(purchase);
         }
 
-        public List<Purchase> GetPurchases()
+        public List<Purchase> GetAllPurchases()
         {
             List<Purchase> purchases = new List<Purchase>();
 

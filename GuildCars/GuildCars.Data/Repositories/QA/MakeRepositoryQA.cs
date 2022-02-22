@@ -54,7 +54,7 @@ namespace GuildCars.Data.Repositories.QA
             make5.DateMakeCreated = DateTime.Now;
             _makes.Add(make5);
         }
-        public List<Make> GetMakes()
+        public List<Make> GetAllVehicleMakes()
         {
             List<Make> makes = new List<Make>();
 
@@ -65,7 +65,7 @@ namespace GuildCars.Data.Repositories.QA
             return makes;
         }
 
-        public void Insert(Make make)
+        public void InsertVehicleMake(Make make)
         {
             _makes.Add(make);
         }

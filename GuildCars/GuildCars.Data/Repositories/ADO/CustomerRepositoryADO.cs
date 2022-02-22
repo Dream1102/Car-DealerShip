@@ -12,7 +12,7 @@ namespace GuildCars.Data.Repositories.ADO
 {
     public class CustomerRepositoryADO : ICustomerRepository
     {
-        public List<Customer> GetCustomers()
+        public List<Customer> GetAllCustomers()
         {
             List<Customer> customers = new List<Customer>();
 
@@ -44,7 +44,7 @@ namespace GuildCars.Data.Repositories.ADO
             return customers;
         }
 
-        public void Insert(Customer customer)
+        public void InsertCustomer(Customer customer)
         {
             using (var cn = new SqlConnection(Settings.GetConnectionString()))
             {

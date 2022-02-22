@@ -33,12 +33,12 @@ namespace GuildCars.Data.Repositories.QA
             _customers.Add(customer);
         }
 
-        public void Insert(Customer customer)
+        public void InsertCustomer(Customer customer)
         {
             _customers.Add(customer);
         }
 
-        public List<Customer> GetCustomers()
+        public List<Customer> GetAllCustomers()
         {
             throw new NotImplementedException();
         }

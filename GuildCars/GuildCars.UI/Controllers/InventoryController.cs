@@ -16,7 +16,7 @@ namespace GuildCars.UI.Controllers
         public ActionResult Details(string id)
         {
             var repo = VehicleRepositoryFactory.GetRepository();
-            var model = repo.GetById(id);
+            var model = repo.GetVehicleById(id);
 
             return View(model);
         }
@@ -26,8 +26,8 @@ namespace GuildCars.UI.Controllers
             var repo = VehicleRepositoryFactory.GetRepository();
             var model = new SearchInventoryViewModel();
             bool isUsed = false;
-            model.Years = repo.GetYears(isUsed);
-            model.Prices = repo.GetListPrices(isUsed);
+            model.Years = repo.GetYearsOfVehiclesInInventory(isUsed);
+            model.Prices = repo.GetListPricesOfVehiclesInInventory(isUsed);
             
             return View(model);
         }
@@ -37,8 +37,8 @@ namespace GuildCars.UI.Controllers
             var repo = VehicleRepositoryFactory.GetRepository();
             var model = new SearchInventoryViewModel();
             bool isUsed = true;
-            model.Years = repo.GetYears(isUsed);
-            model.Prices = repo.GetListPrices(isUsed);
+            model.Years = repo.GetYearsOfVehiclesInInventory(isUsed);
+            model.Prices = repo.GetListPricesOfVehiclesInInventory(isUsed);
 
             return View(model);
         }

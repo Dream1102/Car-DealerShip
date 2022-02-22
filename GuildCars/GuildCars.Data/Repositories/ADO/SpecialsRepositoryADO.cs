@@ -12,7 +12,7 @@ namespace GuildCars.Data.Repositories.ADO
 {
     public class SpecialsRepositoryADO : ISpecialsRepository
     {
-        public List<Special> GetAll()
+        public List<Special> GetAllSpecials()
         {
             List<Special> specials = new List<Special>();
 
@@ -40,7 +40,7 @@ namespace GuildCars.Data.Repositories.ADO
             return specials;
         }
 
-        public void Insert(Special specialItem)
+        public void InsertSpecial(Special specialItem)
         {
             using (var cn = new SqlConnection(Settings.GetConnectionString()))
             {
@@ -65,7 +65,7 @@ namespace GuildCars.Data.Repositories.ADO
             }
         }
 
-        public void Delete(int specialId)
+        public void DeleteSpecial(int specialId)
         {
             using (var cn = new SqlConnection(Settings.GetConnectionString()))
             {

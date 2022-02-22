@@ -24,8 +24,8 @@ namespace GuildCars.UI.Controllers
                 ViewBag.UserEmail = user.Email;
             }
             var model = new AllInventoryViewModel();
-            model.Years = VehicleRepositoryFactory.GetRepository().GetYears();
-            model.Prices = VehicleRepositoryFactory.GetRepository().GetListPrices();
+            model.Years = VehicleRepositoryFactory.GetRepository().GetYearsOfVehiclesInInventory();
+            model.Prices = VehicleRepositoryFactory.GetRepository().GetListPricesOfVehiclesInInventory();
 
             return View(model);
         }
@@ -36,7 +36,7 @@ namespace GuildCars.UI.Controllers
             var model = new PurchaseVehicleViewModel(); 
             var vehicleRepo = VehicleRepositoryFactory.GetRepository();
 
-            model.Vehicle = vehicleRepo.GetById(id);
+            model.Vehicle = vehicleRepo.GetVehicleById(id);
             model.PurchaseTypes = GetPurchaseTypesSelectList();
             model.States = GetStatesSelectList();
 
@@ -80,7 +80,7 @@ namespace GuildCars.UI.Controllers
         public ActionResult Makes()
         {
             var model = new MakesViewModel();
-            model.Makes = MakeRepositoryFactory.GetRepository().GetMakes();
+            model.Makes = MakeRepositoryFactory.GetRepository().GetAllVehicleMakes();
             model.Make = new Make();
 
             return View(model);
@@ -93,7 +93,7 @@ namespace GuildCars.UI.Controllers
             if (ModelState.IsValid)
             {
                 var repo = MakeRepositoryFactory.GetRepository();
-                var allMakes = repo.GetMakes();
+                var allMakes = repo.GetAllVehicleMakes();
                 foreach(var make in allMakes)
                 {
                     if(make.MakeName == newMake.Make.MakeName)
@@ -104,11 +104,11 @@ namespace GuildCars.UI.Controllers
                 newMake.Make.DateMakeCreated = DateTime.Now;
                 newMake.Make.MakeId = GetMakeId(newMake);
                 newMake.Make.UserEmail = User.Identity.GetUserName();
-                repo.Insert(newMake.Make);
+                repo.InsertVehicleMake(newMake.Make);
             }
 
             var model = new MakesViewModel();
-            model.Makes = MakeRepositoryFactory.GetRepository().GetMakes();
+            model.Makes = MakeRepositoryFactory.GetRepository().GetAllVehicleMakes();
             model.Make = new Make();
 
             return View(model);
@@ -119,10 +119,10 @@ namespace GuildCars.UI.Controllers
         {
             var makesRepo = MakeRepositoryFactory.GetRepository();
             var model = new ModelsViewModel();
-            model.Models = ModelRepositoryFactory.GetRepository().GetModels();
-            model.Makes = makesRepo.GetMakes();
+            model.Models = ModelRepositoryFactory.GetRepository().GetAllVehicleModels();
+            model.Makes = makesRepo.GetAllVehicleMakes();
             model.VehicleModel = new VehicleModel();
-            model.MakesSelectList = new SelectList(makesRepo.GetMakes(), "MakeId", "MakeName");
+            model.MakesSelectList = new SelectList(makesRepo.GetAllVehicleMakes(), "MakeId", "MakeName");
 
             return View(model);
         }
@@ -137,15 +137,15 @@ namespace GuildCars.UI.Controllers
                 newModel.VehicleModel.UserEmail = User.Identity.GetUserName();
                 newModel.VehicleModel.ModelId = GetModelId(newModel);
 
-                repo.Insert(newModel.VehicleModel);
+                repo.InsertVehicleModel(newModel.VehicleModel);
             }
 
             var makesRepo = MakeRepositoryFactory.GetRepository();
             var model = new ModelsViewModel();
-            model.Models = ModelRepositoryFactory.GetRepository().GetModels();
-            model.Makes = makesRepo.GetMakes();
+            model.Models = ModelRepositoryFactory.GetRepository().GetAllVehicleModels();
+            model.Makes = makesRepo.GetAllVehicleMakes();
             model.VehicleModel = new VehicleModel();
-            model.MakesSelectList = new SelectList(makesRepo.GetMakes(), "MakeId", "MakeName");
+            model.MakesSelectList = new SelectList(makesRepo.GetAllVehicleMakes(), "MakeId", "MakeName");
 
             return View(model);
         }
@@ -155,7 +155,7 @@ namespace GuildCars.UI.Controllers
         private string GetStates(PurchaseVehicleViewModel purchase)
         {
             var statesRepo = StateRepositoryFactory.GetRepository();
-            var states = statesRepo.GetStates();
+            var states = statesRepo.GetAllStates();
             
             purchase.Customer.State.StateName = Convert.ToString(from state in states
                              where state.StateAbbreviation == purchase.Customer.State.StateAbbreviation
@@ -167,7 +167,7 @@ namespace GuildCars.UI.Controllers
         private bool CheckIfCustomerExists(PurchaseVehicleViewModel purchase)
         {
             var repo = CustomerRepositoryFactory.GetRepository();
-            var allCustomers = repo.GetCustomers();
+            var allCustomers = repo.GetAllCustomers();
 
             bool customerExists = false;
 
@@ -197,7 +197,7 @@ namespace GuildCars.UI.Controllers
             customerToSave.Zip = purchase.Customer.Zip;
             customerToSave.CustomerEmail = purchase.Customer.CustomerEmail;
 
-            repo.Insert(customerToSave);
+            repo.InsertCustomer(customerToSave);
         }
 
         private void EditVehicle(PurchaseVehicleViewModel purchase)
@@ -229,7 +229,7 @@ namespace GuildCars.UI.Controllers
             vehicleToEdit.IsSold = true;
             vehicleToEdit.UserEmail = purchase.Vehicle.UserEmail;
 
-            repo.Update(vehicleToEdit);
+            repo.UpdateVehicle(vehicleToEdit);
         }
 
         private void SavePurchase(PurchaseVehicleViewModel purchase)
@@ -239,7 +239,7 @@ namespace GuildCars.UI.Controllers
             var purchaseTypeRepo = PurchaseTypeRepositoryFactory.GetRepository();
             
             var purchaseToSave = new Purchase();
-            var states = statesRepo.GetStates();
+            var states = statesRepo.GetAllStates();
             var purchaseTypes = purchaseTypeRepo.GetAllPurchaseTypes();
 
             purchaseToSave.PurchaseId = GetPurchaseId(purchase);
@@ -283,13 +283,13 @@ namespace GuildCars.UI.Controllers
             purchaseToSave.PurchasePrice = purchase.PurchasePrice;
             purchaseToSave.PurchaseDate = DateTime.Now;
 
-            repo.Insert(purchaseToSave);
+            repo.InsertPurchase(purchaseToSave);
         }
 
         private int GetCustomerId(PurchaseVehicleViewModel purchase)
         {
             var customerRepo = CustomerRepositoryFactory.GetRepository();
-            var allCustomers = customerRepo.GetCustomers();
+            var allCustomers = customerRepo.GetAllCustomers();
             foreach (var customer in allCustomers)
             {
                 if (customer.CustomerName == purchase.Customer.CustomerName && customer.CustomerAddress1 == purchase.Customer.CustomerAddress1 && (customer.CustomerPhone == purchase.Customer.CustomerPhone || customer.CustomerEmail == purchase.Customer.CustomerEmail))
@@ -308,7 +308,7 @@ namespace GuildCars.UI.Controllers
         {
             var makesRepo = MakeRepositoryFactory.GetRepository();
 
-            var makeId = makesRepo.GetMakes().Select(p => p.MakeId).LastOrDefault() + 1;
+            var makeId = makesRepo.GetAllVehicleMakes().Select(p => p.MakeId).LastOrDefault() + 1;
 
             return makeId;
         }
@@ -316,7 +316,7 @@ namespace GuildCars.UI.Controllers
         {
             var modelsRepo = ModelRepositoryFactory.GetRepository();
 
-            var modelId = modelsRepo.GetModels().Select(p => p.ModelId).LastOrDefault() + 1;
+            var modelId = modelsRepo.GetAllVehicleModels().Select(p => p.ModelId).LastOrDefault() + 1;
 
             return modelId;
         }
@@ -325,7 +325,7 @@ namespace GuildCars.UI.Controllers
         {
             var purchaseRepo = PurchaseRepositoryFactory.GetRepository();
 
-            var purchaseId = purchaseRepo.GetPurchases().Select(p => p.PurchaseId).LastOrDefault() + 1;
+            var purchaseId = purchaseRepo.GetAllPurchases().Select(p => p.PurchaseId).LastOrDefault() + 1;
 
             return purchaseId;
         }
@@ -333,7 +333,7 @@ namespace GuildCars.UI.Controllers
         private List<SelectListItem> GetStatesSelectList()
         {
             var repo = StateRepositoryFactory.GetRepository();
-            var states = repo.GetStates();
+            var states = repo.GetAllStates();
 
 
             List<SelectListItem> items = states.ConvertAll(p =>

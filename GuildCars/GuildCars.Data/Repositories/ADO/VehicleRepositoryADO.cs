@@ -14,7 +14,7 @@ namespace GuildCars.Data.Repositories.ADO.VehicleTables
 {
     public class VehicleRepositoryADO : IVehicleRepository
     {
-        public void Delete(string vehicleId)
+        public void DeleteVehicle(string vehicleId)
         {
             using (var cn = new SqlConnection(Settings.GetConnectionString()))
             {
@@ -102,7 +102,7 @@ namespace GuildCars.Data.Repositories.ADO.VehicleTables
             return vehicles;
         }
 
-        public Vehicle GetById(string vehicleId)
+        public Vehicle GetVehicleById(string vehicleId)
         {
             Vehicle vehicle = new Vehicle();
             using (var cn = new SqlConnection(Settings.GetConnectionString()))
@@ -147,7 +147,7 @@ namespace GuildCars.Data.Repositories.ADO.VehicleTables
             }
         }
 
-        public List<Vehicle> GetFeatured()
+        public List<Vehicle> GetFeaturedVehicles()
         {
             List<Vehicle> featured = new List<Vehicle>();
 
@@ -176,7 +176,7 @@ namespace GuildCars.Data.Repositories.ADO.VehicleTables
             return featured;
         }
 
-        public void Insert(Vehicle vehicle)
+        public void InsertVehicle(Vehicle vehicle)
         {
             using (var cn = new SqlConnection(Settings.GetConnectionString()))
             {
@@ -205,7 +205,7 @@ namespace GuildCars.Data.Repositories.ADO.VehicleTables
             }
         }
 
-        public void Update(Vehicle vehicle)
+        public void UpdateVehicle(Vehicle vehicle)
         {
             using (var cn = new SqlConnection(Settings.GetConnectionString()))
             {
@@ -235,7 +235,7 @@ namespace GuildCars.Data.Repositories.ADO.VehicleTables
             }
         }
 
-        public List<Vehicle> SalesVehicleSearch(SalesVehicleSearchParameters parameters)
+        public List<Vehicle> SalesUserVehicleSearch(SalesVehicleSearchParameters parameters)
         {
             List<Vehicle> vehicles = new List<Vehicle>();
             decimal minPrice = parameters.MinPrice.HasValue ? parameters.MinPrice.Value : 0;
@@ -286,7 +286,7 @@ namespace GuildCars.Data.Repositories.ADO.VehicleTables
             return vehicles;
         }
 
-        public List<Vehicle> VehicleSearch(VehicleSearchParameters parameters)
+        public List<Vehicle> AnonymousUserVehicleSearch(VehicleSearchParameters parameters)
         {
             List<Vehicle> vehicles = new List<Vehicle>();
             decimal minPrice = parameters.MinPrice.HasValue ? parameters.MinPrice.Value : 0;
@@ -338,11 +338,11 @@ namespace GuildCars.Data.Repositories.ADO.VehicleTables
             return vehicles;
         }
 
-        public List<SelectListItem> GetYears(bool isUsed)
+        public List<SelectListItem> GetYearsOfVehiclesInInventory(bool isUsed)
         {
             var searchParams = new VehicleSearchParameters();
             searchParams.IsUsed = isUsed;
-            var vehicles = VehicleSearch(searchParams).OrderBy(y => y.Year);
+            var vehicles = AnonymousUserVehicleSearch(searchParams).OrderBy(y => y.Year);
 
             List<int> vehicleYears = new List<int>();
 
@@ -368,10 +368,10 @@ namespace GuildCars.Data.Repositories.ADO.VehicleTables
         }
 
 
-        public List<SelectListItem> GetYears()
+        public List<SelectListItem> GetYearsOfVehiclesInInventory()
         {
             var searchParams = new SalesVehicleSearchParameters();
-            var vehicles = SalesVehicleSearch(searchParams).OrderBy(y => y.Year);
+            var vehicles = SalesUserVehicleSearch(searchParams).OrderBy(y => y.Year);
 
             List<int> vehicleYears = new List<int>();
 
@@ -395,11 +395,11 @@ namespace GuildCars.Data.Repositories.ADO.VehicleTables
 
             return items;
         }
-        public List<SelectListItem> GetListPrices(bool isUsed)
+        public List<SelectListItem> GetListPricesOfVehiclesInInventory(bool isUsed)
         {
             var searchParams = new VehicleSearchParameters();
             searchParams.IsUsed = isUsed;
-            var vehicles = VehicleSearch(searchParams).OrderByDescending(m => m.MSRP);
+            var vehicles = AnonymousUserVehicleSearch(searchParams).OrderByDescending(m => m.MSRP);
 
             List<decimal> listPrices = new List<decimal>();
 
@@ -425,10 +425,10 @@ namespace GuildCars.Data.Repositories.ADO.VehicleTables
 
         }
 
-        public List<SelectListItem> GetListPrices()
+        public List<SelectListItem> GetListPricesOfVehiclesInInventory()
         {
             var searchParams = new SalesVehicleSearchParameters();
-            var vehicles = SalesVehicleSearch(searchParams).OrderByDescending(m => m.MSRP);
+            var vehicles = SalesUserVehicleSearch(searchParams).OrderByDescending(m => m.MSRP);
 
             List<decimal> listPrices = new List<decimal>();
 

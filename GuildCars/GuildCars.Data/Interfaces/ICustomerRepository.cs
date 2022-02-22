@@ -9,7 +9,7 @@ namespace GuildCars.Data.Interfaces
 {
     public interface ICustomerRepository
     {
-        void Insert(Customer customer);
-        List<Customer> GetCustomers();
+        void InsertCustomer(Customer customer);
+        List<Customer> GetAllCustomers();
     }
 }

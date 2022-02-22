@@ -11,18 +11,18 @@ namespace GuildCars.Data.Interfaces.VehicleTables
 {
     public interface IVehicleRepository
     {
-        List<Vehicle> GetFeatured();
-        List<Vehicle> VehicleSearch(VehicleSearchParameters parameters);
-        List<Vehicle> SalesVehicleSearch(SalesVehicleSearchParameters parameters);
+        List<Vehicle> GetFeaturedVehicles();
+        List<Vehicle> AnonymousUserVehicleSearch(VehicleSearchParameters parameters);
+        List<Vehicle> SalesUserVehicleSearch(SalesVehicleSearchParameters parameters);
         List<Vehicle> GetAllVehicles();
-        Vehicle GetById(string vehicleId);
-        void Insert(Vehicle vehicle);
-        void Update(Vehicle vehicle);
-        void Delete(string vehicleId);
-        List<SelectListItem> GetYears(bool isUsed);
-        List<SelectListItem> GetListPrices(bool isUsed);
-        List<SelectListItem> GetYears();
-        List<SelectListItem> GetListPrices();
+        Vehicle GetVehicleById(string vehicleId);
+        void InsertVehicle(Vehicle vehicle);
+        void UpdateVehicle(Vehicle vehicle);
+        void DeleteVehicle(string vehicleId);
+        List<SelectListItem> GetYearsOfVehiclesInInventory(bool isUsed);
+        List<SelectListItem> GetListPricesOfVehiclesInInventory(bool isUsed);
+        List<SelectListItem> GetYearsOfVehiclesInInventory();
+        List<SelectListItem> GetListPricesOfVehiclesInInventory();
         List<InventoryReportItem> GetInventoryReport();
     }
 }

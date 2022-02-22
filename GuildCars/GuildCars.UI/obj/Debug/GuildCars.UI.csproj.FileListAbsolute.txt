@@ -119,3 +119,10 @@ C:\Users\Jamie\source\repos\online-net-2021-sewy44\Summatives\DDWA-Mastery\Guild
 C:\Users\Jamie\source\repos\online-net-2021-sewy44\Summatives\DDWA-Mastery\GuildCars\GuildCars.UI\obj\Debug\GuildCars.UI.csproj.CopyComplete
 C:\Users\Jamie\source\repos\online-net-2021-sewy44\Summatives\DDWA-Mastery\GuildCars\GuildCars.UI\obj\Debug\GuildCars.UI.dll
 C:\Users\Jamie\source\repos\online-net-2021-sewy44\Summatives\DDWA-Mastery\GuildCars\GuildCars.UI\obj\Debug\GuildCars.UI.pdb
+C:\Users\Jamie\source\repos\sewy44-personal-public\CarDealership\CarDealership\GuildCars\GuildCars.UI\obj\Debug\GuildCars.UI.csproj.AssemblyReference.cache
+C:\Users\Jamie\source\repos\sewy44-personal-public\CarDealership\CarDealership\GuildCars\GuildCars.UI\obj\Debug\GuildCars.UI.Migrations.init.resources
+C:\Users\Jamie\source\repos\sewy44-personal-public\CarDealership\CarDealership\GuildCars\GuildCars.UI\obj\Debug\GuildCars.UI.Migrations.second.resources
+C:\Users\Jamie\source\repos\sewy44-personal-public\CarDealership\CarDealership\GuildCars\GuildCars.UI\obj\Debug\GuildCars.UI.csproj.GenerateResource.cache
+C:\Users\Jamie\source\repos\sewy44-personal-public\CarDealership\CarDealership\GuildCars\GuildCars.UI\obj\Debug\GuildCars.UI.csproj.CoreCompileInputs.cache
+C:\Users\Jamie\source\repos\sewy44-personal-public\CarDealership\CarDealership\GuildCars\GuildCars.UI\obj\Debug\GuildCars.UI.dll
+C:\Users\Jamie\source\repos\sewy44-personal-public\CarDealership\CarDealership\GuildCars\GuildCars.UI\obj\Debug\GuildCars.UI.pdb

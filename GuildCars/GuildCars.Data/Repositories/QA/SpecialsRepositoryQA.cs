@@ -41,7 +41,7 @@ namespace GuildCars.Data.Repositories.QA
 
         }
 
-        public void Delete(int specialId)
+        public void DeleteSpecial(int specialId)
         {
             if(_specials[specialId] != null)
             {
@@ -53,7 +53,7 @@ namespace GuildCars.Data.Repositories.QA
             }
         }
 
-        public List<Special> GetAll()
+        public List<Special> GetAllSpecials()
         {
             List<Special> specials = new List<Special>();
 
@@ -65,7 +65,7 @@ namespace GuildCars.Data.Repositories.QA
             return specials;
         }
 
-        public void Insert(Special specialItem)
+        public void InsertSpecial(Special specialItem)
         {
             _specials.Add(specialItem);
         }

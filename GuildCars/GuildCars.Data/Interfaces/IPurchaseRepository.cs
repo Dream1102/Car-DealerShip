@@ -11,7 +11,7 @@ namespace GuildCars.Data.Interfaces
     public interface IPurchaseRepository
     {
         List<SalesReport> GetSalesReport(SalesReportSearchParameters parameters);
-        void Insert(Purchase purchase);
-        List<Purchase> GetPurchases();
+        void InsertPurchase(Purchase purchase);
+        List<Purchase> GetAllPurchases();
     }
 }

@@ -13,7 +13,7 @@ namespace GuildCars.Data.Repositories.ADO
 {
     public class PurchaseRepositoryADO : IPurchaseRepository
     {
-        public List<Purchase> GetPurchases()
+        public List<Purchase> GetAllPurchases()
         {
             List<Purchase> purchases = new List<Purchase>();
 
@@ -43,7 +43,7 @@ namespace GuildCars.Data.Repositories.ADO
             return purchases;
         }
 
-        public void Insert(Purchase purchase)
+        public void InsertPurchase(Purchase purchase)
         {
             using (var cn = new SqlConnection(Settings.GetConnectionString()))
             {

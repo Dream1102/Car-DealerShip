@@ -10,8 +10,8 @@ namespace GuildCars.Data.Interfaces
 {
     public interface ISpecialsRepository
     {
-        List<Special> GetAll();
-        void Delete(int specialId);
-        void Insert(Special specialItem);
+        List<Special> GetAllSpecials();
+        void DeleteSpecial(int specialId);
+        void InsertSpecial(Special specialItem);
     }
 }

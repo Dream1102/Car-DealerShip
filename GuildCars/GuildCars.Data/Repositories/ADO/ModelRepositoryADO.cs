@@ -13,7 +13,7 @@ namespace GuildCars.Data.Repositories.ADO.VehicleTables
 {
     public class ModelRepositoryADO : IModelRepository
     {
-        public List<VehicleModel> GetModels()
+        public List<VehicleModel> GetAllVehicleModels()
         {
             List<VehicleModel> models = new List<VehicleModel>();
 
@@ -40,7 +40,7 @@ namespace GuildCars.Data.Repositories.ADO.VehicleTables
             return models;
         }
 
-        public void Insert(VehicleModel model)
+        public void InsertVehicleModel(VehicleModel model)
         {
             using (var cn = new SqlConnection(Settings.GetConnectionString()))
             {

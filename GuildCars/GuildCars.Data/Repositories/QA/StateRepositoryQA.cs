@@ -44,7 +44,7 @@ namespace GuildCars.Data.Repositories.QA
             state5.StateName = "Pennsylvania";
             _states.Add(state5);
         }
-            public List<State> GetStates()
+            public List<State> GetAllStates()
         {
             List<State> states = new List<State>();
 
