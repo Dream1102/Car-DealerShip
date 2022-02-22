@@ -476,5 +476,90 @@ namespace GuildCars.Data.Repositories.QA
 
             return items;
         }
+
+        public List<SelectListItem> GetListPricesOfVehiclesInInventory(bool isUsed)
+        {
+            var searchParams = new VehicleSearchParameters();
+            searchParams.IsUsed = isUsed;
+            var vehicles = AnonymousUserVehicleSearch(searchParams).OrderByDescending(m => m.MSRP);
+
+            List<decimal> listPrices = new List<decimal>();
+
+            foreach (var vehicle in vehicles)
+            {
+                if (!listPrices.Contains(vehicle.ListedPrice))
+                {
+                    listPrices.Add(vehicle.ListedPrice);
+                }
+            }
+
+            List<SelectListItem> items = listPrices.ConvertAll(p =>
+            {
+                return new SelectListItem()
+                {
+                    Text = p.ToString(),
+                    Value = p.ToString(),
+                    Selected = false
+                };
+            });
+
+            return items;
+        }
+
+        public List<SelectListItem> GetYearsOfVehiclesInInventory()
+        {
+            var searchParams = new SalesVehicleSearchParameters();
+            var vehicles = SalesUserVehicleSearch(searchParams).OrderBy(y => y.Year);
+
+            List<int> vehicleYears = new List<int>();
+
+            foreach (var vehicle in vehicles)
+            {
+                if (!vehicleYears.Contains(vehicle.Year))
+                {
+                    vehicleYears.Add(vehicle.Year);
+                }
+            }
+
+            List<SelectListItem> items = vehicleYears.ConvertAll(y =>
+            {
+                return new SelectListItem()
+                {
+                    Text = y.ToString(),
+                    Value = y.ToString(),
+                    Selected = false
+                };
+            });
+
+            return items;
+        }
+
+        public List<SelectListItem> GetListPricesOfVehiclesInInventory()
+        {
+            var searchParams = new SalesVehicleSearchParameters();
+            var vehicles = SalesUserVehicleSearch(searchParams).OrderByDescending(m => m.MSRP);
+
+            List<decimal> listPrices = new List<decimal>();
+
+            foreach (var vehicle in vehicles)
+            {
+                if (!listPrices.Contains(vehicle.ListedPrice))
+                {
+                    listPrices.Add(vehicle.ListedPrice);
+                }
+            }
+
+            List<SelectListItem> items = listPrices.ConvertAll(p =>
+            {
+                return new SelectListItem()
+                {
+                    Text = p.ToString(),
+                    Value = p.ToString(),
+                    Selected = false
+                };
+            });
+
+            return items;
+        }
     }
 }

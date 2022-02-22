@@ -76,7 +76,7 @@ namespace GuildCars.Tests.IntegrationTests
         {
             var repo = new MakeRepositoryADO();
 
-            var makes = repo.GetMakes();
+            var makes = repo.GetAllVehicleMakes();
 
             Assert.AreEqual(5, makes.Count);
 
@@ -94,9 +94,9 @@ namespace GuildCars.Tests.IntegrationTests
             make.MakeName = "Hyundai";
             make.UserEmail = "jamie@guildcars.com";
 
-            repo.Insert(make);
+            repo.InsertVehicleMake(make);
 
-            var allMakes = repo.GetMakes();
+            var allMakes = repo.GetAllVehicleMakes();
 
             Assert.AreEqual(6, allMakes.Count());
 
@@ -110,7 +110,7 @@ namespace GuildCars.Tests.IntegrationTests
         {
             var repo = new ModelRepositoryADO();
 
-            var models = repo.GetModels();
+            var models = repo.GetAllVehicleModels();
 
             Assert.AreEqual(11, models.Count);
 
@@ -129,9 +129,9 @@ namespace GuildCars.Tests.IntegrationTests
             model.ModelName = "Camry";
             model.UserEmail = "jamie@guildcars.com";
 
-            repo.Insert(model);
+            repo.InsertVehicleModel(model);
 
-            var allModels = repo.GetModels();
+            var allModels = repo.GetAllVehicleModels();
 
             Assert.AreEqual(12, allModels.Count());
 
@@ -158,7 +158,7 @@ namespace GuildCars.Tests.IntegrationTests
         public void CanLoadFeaturedVehicles()
         {
             var repo = new VehicleRepositoryADO();
-            var featured = repo.GetFeatured();
+            var featured = repo.GetFeaturedVehicles();
 
             Assert.AreEqual(3, featured.Count);
 
@@ -175,7 +175,7 @@ namespace GuildCars.Tests.IntegrationTests
         {
             var repo = new VehicleRepositoryADO();
             var vehicleId = "1C4SDJGJ9JC416162";
-            var vehicle = repo.GetById(vehicleId);
+            var vehicle = repo.GetVehicleById(vehicleId);
 
             Assert.AreEqual("1C4SDJGJ9JC416162", vehicle.VehicleId);
             Assert.AreEqual("Durango", vehicle.VehicleModel.ModelName);
@@ -214,10 +214,10 @@ namespace GuildCars.Tests.IntegrationTests
             vehicle.IsSold = false;
             vehicle.UserEmail = "jamie@guildcars.com";
 
-            repo.Insert(vehicle);
+            repo.InsertVehicle(vehicle);
 
             var id = "aaaaaaaaaaaaaaaaa";
-            var newVehicle = repo.GetById(id);
+            var newVehicle = repo.GetVehicleById(id);
 
             Assert.AreEqual("aaaaaaaaaaaaaaaaa", newVehicle.VehicleId);
             Assert.AreEqual(8, newVehicle.VehicleModel.ModelId);
@@ -260,7 +260,7 @@ namespace GuildCars.Tests.IntegrationTests
             vehicleToAdd.IsSold = false;
             vehicleToAdd.UserEmail = "jamie@guildcars.com";
 
-            repo.Insert(vehicleToAdd);
+            repo.InsertVehicle(vehicleToAdd);
 
             vehicleToAdd.VehicleModel.ModelId = 9;
             vehicleToAdd.InteriorColor.InteriorColorId = 4;
@@ -278,10 +278,10 @@ namespace GuildCars.Tests.IntegrationTests
             vehicleToAdd.IsSold = false;
             vehicleToAdd.UserEmail = "jamie@guildcars.com";
 
-            repo.Update(vehicleToAdd);
+            repo.UpdateVehicle(vehicleToAdd);
 
             var id = "aaaaaaaaaaaaaaaaa";
-            var updatedVehicle = repo.GetById(id);
+            var updatedVehicle = repo.GetVehicleById(id);
 
             Assert.AreEqual("aaaaaaaaaaaaaaaaa", updatedVehicle.VehicleId);
             Assert.AreEqual(9, updatedVehicle.VehicleModel.ModelId);
@@ -323,11 +323,11 @@ namespace GuildCars.Tests.IntegrationTests
             vehicleToAdd.IsSold = false;
             vehicleToAdd.UserEmail = "jamie@guildcars.com";
 
-            repo.Insert(vehicleToAdd);
-            repo.Delete(vehicleToAdd.VehicleId);
+            repo.InsertVehicle(vehicleToAdd);
+            repo.DeleteVehicle(vehicleToAdd.VehicleId);
 
 
-            var deletedVehicle = repo.GetById(vehicleToAdd.VehicleId);
+            var deletedVehicle = repo.GetVehicleById(vehicleToAdd.VehicleId);
 
             Assert.IsNull(deletedVehicle.VehicleId);
         }
@@ -340,7 +340,7 @@ namespace GuildCars.Tests.IntegrationTests
             parameters.IsUsed = false;
             parameters.SearchParameter = null;
 
-            var searchResults = repo.VehicleSearch(parameters);
+            var searchResults = repo.AnonymousUserVehicleSearch(parameters);
 
             Assert.AreEqual(2, searchResults.Count());
 
@@ -366,7 +366,7 @@ namespace GuildCars.Tests.IntegrationTests
             parameters.IsUsed = true;
             parameters.SearchParameter = null;
 
-            var searchResults = repo.VehicleSearch(parameters);
+            var searchResults = repo.AnonymousUserVehicleSearch(parameters);
 
             Assert.AreEqual(7, searchResults.Count());
 
@@ -393,7 +393,7 @@ namespace GuildCars.Tests.IntegrationTests
             parameters.SearchParameter = "Dod";
             parameters.IsUsed = false;
 
-            var searchResults = repo.VehicleSearch(parameters);
+            var searchResults = repo.AnonymousUserVehicleSearch(parameters);
 
             Assert.AreEqual(1, searchResults.Count());
 
@@ -418,7 +418,7 @@ namespace GuildCars.Tests.IntegrationTests
             var parameters = new VehicleSearchParameters();
             parameters.SearchParameter = "Cha";
             parameters.IsUsed = false;
-            var searchResults = repo.VehicleSearch(parameters);
+            var searchResults = repo.AnonymousUserVehicleSearch(parameters);
 
             Assert.AreEqual(1, searchResults.Count());
 
@@ -444,7 +444,7 @@ namespace GuildCars.Tests.IntegrationTests
             parameters.SearchParameter = "21";
             parameters.IsUsed = false;
 
-            var searchResults = repo.VehicleSearch(parameters);
+            var searchResults = repo.AnonymousUserVehicleSearch(parameters);
 
             Assert.AreEqual(2, searchResults.Count());
 
@@ -470,7 +470,7 @@ namespace GuildCars.Tests.IntegrationTests
             parameters.IsUsed = false;
             parameters.MinPrice = 36000;
 
-            var searchResults = repo.VehicleSearch(parameters);
+            var searchResults = repo.AnonymousUserVehicleSearch(parameters);
 
             Assert.AreEqual(1, searchResults.Count());
 
@@ -496,7 +496,7 @@ namespace GuildCars.Tests.IntegrationTests
             parameters.IsUsed = false;
             parameters.MaxPrice = 36000;
 
-            var searchResults = repo.VehicleSearch(parameters);
+            var searchResults = repo.AnonymousUserVehicleSearch(parameters);
 
             Assert.AreEqual(1, searchResults.Count());
 
@@ -523,7 +523,7 @@ namespace GuildCars.Tests.IntegrationTests
             parameters.MinPrice = 35000;
             parameters.MaxPrice = 37000;
 
-            var searchResults = repo.VehicleSearch(parameters);
+            var searchResults = repo.AnonymousUserVehicleSearch(parameters);
 
             Assert.AreEqual(2, searchResults.Count());
 
@@ -549,7 +549,7 @@ namespace GuildCars.Tests.IntegrationTests
             parameters.IsUsed = false;
             parameters.MinYear = 2021;
 
-            var searchResults = repo.VehicleSearch(parameters);
+            var searchResults = repo.AnonymousUserVehicleSearch(parameters);
 
             Assert.AreEqual(2, searchResults.Count());
 
@@ -575,7 +575,7 @@ namespace GuildCars.Tests.IntegrationTests
             parameters.IsUsed = false;
             parameters.MaxYear = 2021;
 
-            var searchResults = repo.VehicleSearch(parameters);
+            var searchResults = repo.AnonymousUserVehicleSearch(parameters);
 
             Assert.AreEqual(2, searchResults.Count());
 
@@ -602,7 +602,7 @@ namespace GuildCars.Tests.IntegrationTests
             parameters.MaxYear = 2021;
             parameters.MinYear = 2017;
 
-            var searchResults = repo.VehicleSearch(parameters);
+            var searchResults = repo.AnonymousUserVehicleSearch(parameters);
 
             Assert.AreEqual(2, searchResults.Count());
 
@@ -630,7 +630,7 @@ namespace GuildCars.Tests.IntegrationTests
             parameters.MinPrice = 36000;
             parameters.SearchParameter = "Chal";
 
-            var searchResults = repo.VehicleSearch(parameters);
+            var searchResults = repo.AnonymousUserVehicleSearch(parameters);
 
             Assert.AreEqual(1, searchResults.Count());
 
@@ -674,7 +674,7 @@ namespace GuildCars.Tests.IntegrationTests
         {
             var repo = new StateRepositoryADO();
 
-            var states = repo.GetStates();
+            var states = repo.GetAllStates();
 
             Assert.AreEqual(5, states.Count);
 
@@ -689,7 +689,7 @@ namespace GuildCars.Tests.IntegrationTests
         {
             var repo = new SpecialsRepositoryADO();
 
-            var specials = repo.GetAll();
+            var specials = repo.GetAllSpecials();
 
             Assert.AreEqual(2, specials.Count);
 
@@ -710,9 +710,9 @@ namespace GuildCars.Tests.IntegrationTests
             special.SpecialDescription = "We are having a blowout sale on all in-stock VANS!!";
             special.UserEmail = "jamie@guildcars.com";
 
-            repo.Insert(special);
+            repo.InsertSpecial(special);
 
-            var allSpecials = repo.GetAll();
+            var allSpecials = repo.GetAllSpecials();
 
             Assert.AreEqual(3, allSpecials.Count());
             Assert.AreEqual("VAN SALE!!", allSpecials[2].SpecialName);
@@ -730,16 +730,16 @@ namespace GuildCars.Tests.IntegrationTests
             specialToAdd.SpecialDescription = "Free Oil changes for the life of your warranty with the purchase of a new vehicle!";
             specialToAdd.UserEmail = "jamie@guildcars.com";
 
-            repo.Insert(specialToAdd);
+            repo.InsertSpecial(specialToAdd);
 
-            var allSpecials = repo.GetAll();
+            var allSpecials = repo.GetAllSpecials();
 
             Assert.AreEqual(3, allSpecials.Count);
             Assert.AreEqual("Free Oil Change", allSpecials[2].SpecialName);
 
-            repo.Delete(specialToAdd.SpecialId);
+            repo.DeleteSpecial(specialToAdd.SpecialId);
 
-            allSpecials = repo.GetAll();
+            allSpecials = repo.GetAllSpecials();
 
             Assert.AreEqual(2, allSpecials.Count);
         }
@@ -751,7 +751,7 @@ namespace GuildCars.Tests.IntegrationTests
         {
             var repo = new ContactRequestRepositoryADO();
 
-            var contactRequests = repo.GetAll();
+            var contactRequests = repo.GetAllContactRequests();
 
             Assert.AreEqual(2, contactRequests.Count);
 
@@ -775,9 +775,9 @@ namespace GuildCars.Tests.IntegrationTests
             contactRequest.ContactPhone = "502-222-2222";
             contactRequest.ContactMessage = "I like this car";
 
-            repo.Insert(contactRequest);
+            repo.InsertContactRequest(contactRequest);
 
-            var contactRequests = repo.GetAll();
+            var contactRequests = repo.GetAllContactRequests();
 
             Assert.AreEqual(3, contactRequests.Count());
             Assert.AreEqual(3, contactRequests[2].ContactRequestId);
@@ -803,7 +803,7 @@ namespace GuildCars.Tests.IntegrationTests
             customer.State.StateAbbreviation = "KY";
             customer.CustomerEmail = "Burt@handsomeness.com";
 
-            repo.Insert(customer);
+            repo.InsertCustomer(customer);
 
             Assert.AreEqual(2, customer.CustomerId);
         }
@@ -846,7 +846,7 @@ namespace GuildCars.Tests.IntegrationTests
             purchase.PurchasePrice = 34800;
             purchase.UserEmail = "jamie@guildcars.com";
 
-            repo.Insert(purchase);
+            repo.InsertPurchase(purchase);
 
             Assert.AreEqual(2, purchase.PurchaseId);
         }

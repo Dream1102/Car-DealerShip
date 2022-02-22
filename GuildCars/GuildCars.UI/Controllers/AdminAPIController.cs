@@ -32,7 +32,7 @@ namespace GuildCars.UI.Controllers
                     MaxYear = maxYear
                 };
 
-                var vehicles = repo.SalesVehicleSearch(parameters).Take(20).OrderByDescending(m => m.MSRP);
+                var vehicles = repo.SalesUserVehicleSearch(parameters).Take(20).OrderByDescending(m => m.MSRP);
                 return Ok(vehicles);
             }
             catch (Exception ex)
@@ -46,7 +46,7 @@ namespace GuildCars.UI.Controllers
         public IHttpActionResult GetModelsSelectList(int makeId)
         {
             var modelsRepo = ModelRepositoryFactory.GetRepository();
-            var modelList = modelsRepo.GetModels();
+            var modelList = modelsRepo.GetAllVehicleModels();
 
             try
             {

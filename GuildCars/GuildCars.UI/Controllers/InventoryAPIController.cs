@@ -31,7 +31,7 @@ namespace GuildCars.UI.Controllers
                     MaxYear = maxYear
                 };
 
-                var vehicles = repo.VehicleSearch(parameters).Take(20).OrderByDescending(m => m.MSRP);
+                var vehicles = repo.AnonymousUserVehicleSearch(parameters).Take(20).OrderByDescending(m => m.MSRP);
                 return Ok(vehicles);
             }
             catch (Exception ex)

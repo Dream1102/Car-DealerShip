@@ -16,8 +16,8 @@ namespace GuildCars.UI.Controllers
         public ActionResult Index()
         {
             dynamic model = new ExpandoObject();
-            model.Specials = SpecialsRepositoryFactory.GetRepository().GetAll();
-            model.Vehicles = VehicleRepositoryFactory.GetRepository().GetFeatured();
+            model.Specials = SpecialsRepositoryFactory.GetRepository().GetAllSpecials();
+            model.Vehicles = VehicleRepositoryFactory.GetRepository().GetFeaturedVehicles();
 
             return View(model);
         }
@@ -25,7 +25,7 @@ namespace GuildCars.UI.Controllers
         [HttpGet]
         public ActionResult Specials()
         {
-            var model = SpecialsRepositoryFactory.GetRepository().GetAll();
+            var model = SpecialsRepositoryFactory.GetRepository().GetAllSpecials();
 
             return View(model);
         }
@@ -53,7 +53,7 @@ namespace GuildCars.UI.Controllers
             if (ModelState.IsValid)
             {
                 var repo = ContactRequestRepositoryFactory.GetRepository();
-                var allContactRequests = repo.GetAll();
+                var allContactRequests = repo.GetAllContactRequests();
                 var url = Request.RawUrl;
                 contactRequest.ContactRequestId = allContactRequests.Select(c => c.ContactRequestId).LastOrDefault() + 1;
 
@@ -71,7 +71,7 @@ namespace GuildCars.UI.Controllers
                 requestToAdd.ContactMessage = contactRequest.ContactMessage;
                 requestToAdd.DateContactRequestCreated = DateTime.Now;
 
-                repo.Insert(requestToAdd);
+                repo.InsertContactRequest(requestToAdd);
                 return RedirectToAction("Index");
             }
             else

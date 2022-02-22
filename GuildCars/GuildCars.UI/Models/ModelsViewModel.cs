@@ -36,7 +36,7 @@ namespace GuildCars.UI.Models
         private bool CheckModelList(string modelName)
         {
             var repo = ModelRepositoryFactory.GetRepository();
-            var allModels = repo.GetModels();
+            var allModels = repo.GetAllVehicleModels();
 
             foreach (var model in allModels)
             {

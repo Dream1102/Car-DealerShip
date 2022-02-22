@@ -35,7 +35,7 @@ namespace GuildCars.UI.Models
         private bool CheckMakeList(string makeName)
         {
             var repo = MakeRepositoryFactory.GetRepository();
-            var allMakes = repo.GetMakes();
+            var allMakes = repo.GetAllVehicleMakes();
 
             foreach(var make in allMakes)
             {

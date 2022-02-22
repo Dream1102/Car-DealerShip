@@ -41,7 +41,7 @@ namespace GuildCars.UI.Controllers
                 var repo = SpecialsRepositoryFactory.GetRepository();
                 var model = new SpecialsViewModel();
                 model.Special = new Special();
-                model.SpecialsList = repo.GetAll();
+                model.SpecialsList = repo.GetAllSpecials();
 
                 return View(model);
         }
@@ -74,7 +74,7 @@ namespace GuildCars.UI.Controllers
                     newSpecial.Special.SpecialImageFilename = Path.GetFileName(filePath);
                 }
 
-                specialsRepo.Insert(newSpecial.Special);
+                specialsRepo.InsertSpecial(newSpecial.Special);
 
                 return RedirectToAction("Specials");
             }
@@ -83,7 +83,7 @@ namespace GuildCars.UI.Controllers
                 var repo = SpecialsRepositoryFactory.GetRepository();
                 var model = new SpecialsViewModel();
                 model.Special = new Special();
-                model.SpecialsList = repo.GetAll();
+                model.SpecialsList = repo.GetAllSpecials();
 
                 return View(model);
             }
@@ -94,11 +94,11 @@ namespace GuildCars.UI.Controllers
         public ActionResult DeleteSpecial(int id)
         {
             var repo = SpecialsRepositoryFactory.GetRepository();
-            repo.Delete(id);
+            repo.DeleteSpecial(id);
 
             var model = new SpecialsViewModel();
             model.Special = new Special();
-            model.SpecialsList = repo.GetAll();
+            model.SpecialsList = repo.GetAllSpecials();
 
             return RedirectToAction("Specials");
         }
@@ -115,7 +115,7 @@ namespace GuildCars.UI.Controllers
 
             var model = new AddVehicleViewModel();
 
-            model.MakeList = new SelectList(makesRepo.GetMakes(), "MakeId", "MakeName");
+            model.MakeList = new SelectList(makesRepo.GetAllVehicleMakes(), "MakeId", "MakeName");
             model.BodyStyleList = new SelectList(bodyStylesRepo.GetBodyStyles(), "BodyStyleId", "BodyStyleName");
             model.TransmissionTypeList = new SelectList(transmissionTypesRepo.GetTransmissionTypes(), "TransmissionTypeId", "TransmissionTypeName");
             model.ExteriorColorList = new SelectList(exteriorColorsRepo.GetExteriorColors(), "ExteriorColorId", "ExteriorColorName");
@@ -151,7 +151,7 @@ namespace GuildCars.UI.Controllers
                 newVehicle.Vehicle.IsSold = false;
                 newVehicle.Vehicle.UserEmail = User.Identity.GetUserName();
                 
-                repo.Insert(newVehicle.Vehicle);
+                repo.InsertVehicle(newVehicle.Vehicle);
 
                 return RedirectToAction("EditVehicle", new { id = newVehicle.Vehicle.VehicleId });
             }
@@ -163,7 +163,7 @@ namespace GuildCars.UI.Controllers
                 var exteriorColorsRepo = ExteriorColorRepositoryFactory.GetRepository();
                 var interiorColorsRepo = InteriorColorRepositoryFactory.GetRepository();
 
-                newVehicle.MakeList = new SelectList(makesRepo.GetMakes(), "MakeId", "MakeName");
+                newVehicle.MakeList = new SelectList(makesRepo.GetAllVehicleMakes(), "MakeId", "MakeName");
                 newVehicle.BodyStyleList = new SelectList(bodyStylesRepo.GetBodyStyles(), "BodyStyleId", "BodyStyleName");
                 newVehicle.TransmissionTypeList = new SelectList(transmissionTypesRepo.GetTransmissionTypes(), "TransmissionTypeId", "TransmissionTypeName");
                 newVehicle.ExteriorColorList = new SelectList(exteriorColorsRepo.GetExteriorColors(), "ExteriorColorId", "ExteriorColorName");
@@ -193,9 +193,9 @@ namespace GuildCars.UI.Controllers
             var url = Request.RawUrl;
             var vehicleId = url.Substring(19);
 
-            model.Vehicle = vehicleRepo.GetById(vehicleId);
+            model.Vehicle = vehicleRepo.GetVehicleById(vehicleId);
 
-            model.MakeList = new SelectList(makesRepo.GetMakes(), "MakeId", "MakeName");
+            model.MakeList = new SelectList(makesRepo.GetAllVehicleMakes(), "MakeId", "MakeName");
             model.BodyStyleList = new SelectList(bodyStylesRepo.GetBodyStyles(), "BodyStyleId", "BodyStyleName");
             model.TransmissionTypeList = new SelectList(transmissionTypesRepo.GetTransmissionTypes(), "TransmissionTypeId", "TransmissionTypeName");
             model.ExteriorColorList = new SelectList(exteriorColorsRepo.GetExteriorColors(), "ExteriorColorId", "ExteriorColorName");
@@ -229,14 +229,14 @@ namespace GuildCars.UI.Controllers
                 }
                 else
                 {
-                    updatedVehicle.Vehicle.ImageFileName = repo.GetById(updatedVehicle.Vehicle.VehicleId).ImageFileName;
+                    updatedVehicle.Vehicle.ImageFileName = repo.GetVehicleById(updatedVehicle.Vehicle.VehicleId).ImageFileName;
                 }
                 updatedVehicle.Vehicle.DateAdded = DateTime.Now;
 
                 updatedVehicle.Vehicle.IsSold = false;
                 updatedVehicle.Vehicle.UserEmail = User.Identity.GetUserName();
 
-                repo.Update(updatedVehicle.Vehicle);
+                repo.UpdateVehicle(updatedVehicle.Vehicle);
 
                 return RedirectToAction("Vehicles");
             }
@@ -251,9 +251,9 @@ namespace GuildCars.UI.Controllers
 
                 var url = Request.RawUrl;
                 var vehicleId = url.Substring(19);
-                updatedVehicle.Vehicle = vehicleRepo.GetById(vehicleId);
+                updatedVehicle.Vehicle = vehicleRepo.GetVehicleById(vehicleId);
 
-                updatedVehicle.MakeList = new SelectList(makesRepo.GetMakes(), "MakeId", "MakeName");
+                updatedVehicle.MakeList = new SelectList(makesRepo.GetAllVehicleMakes(), "MakeId", "MakeName");
                 updatedVehicle.BodyStyleList = new SelectList(bodyStylesRepo.GetBodyStyles(), "BodyStyleId", "BodyStyleName");
                 updatedVehicle.TransmissionTypeList = new SelectList(transmissionTypesRepo.GetTransmissionTypes(), "TransmissionTypeId", "TransmissionTypeName");
                 updatedVehicle.ExteriorColorList = new SelectList(exteriorColorsRepo.GetExteriorColors(), "ExteriorColorId", "ExteriorColorName");
@@ -280,7 +280,7 @@ namespace GuildCars.UI.Controllers
                 System.IO.File.Delete(deletePath);
             }
 
-            repo.Delete(updatedVehicle.Vehicle.VehicleId);
+            repo.DeleteVehicle(updatedVehicle.Vehicle.VehicleId);
 
             return RedirectToAction("Vehicles");
         }
@@ -438,7 +438,7 @@ namespace GuildCars.UI.Controllers
         {
             var repo = VehicleRepositoryFactory.GetRepository();
             var searchParams = new SalesVehicleSearchParameters();
-            var vehicles = repo.SalesVehicleSearch(searchParams).OrderByDescending(m => m.MSRP);
+            var vehicles = repo.SalesUserVehicleSearch(searchParams).OrderByDescending(m => m.MSRP);
 
             List<decimal> listPrices = new List<decimal>();
 
@@ -469,7 +469,7 @@ namespace GuildCars.UI.Controllers
             var repo = VehicleRepositoryFactory.GetRepository();
             var searchParams = new SalesVehicleSearchParameters();
 
-            var vehicles = repo.SalesVehicleSearch(searchParams).OrderBy(y => y.Year);
+            var vehicles = repo.SalesUserVehicleSearch(searchParams).OrderBy(y => y.Year);
 
             List<int> vehicleYears = new List<int>();
 
@@ -498,7 +498,7 @@ namespace GuildCars.UI.Controllers
         {
             var specialsRepo = SpecialsRepositoryFactory.GetRepository();
 
-            var specialId = specialsRepo.GetAll().Select(p => p.SpecialId).LastOrDefault() + 1;
+            var specialId = specialsRepo.GetAllSpecials().Select(p => p.SpecialId).LastOrDefault() + 1;
 
             return specialId;
         }

@@ -26,3 +26,14 @@ C:\Users\Jamie\source\repos\sewy44-personal-public\CarDealership\CarDealership\G
 C:\Users\Jamie\source\repos\sewy44-personal-public\CarDealership\CarDealership\GuildCars\GuildCars.Tests\obj\Debug\GuildCars.Tests.csproj.CopyComplete
 C:\Users\Jamie\source\repos\sewy44-personal-public\CarDealership\CarDealership\GuildCars\GuildCars.Tests\obj\Debug\GuildCars.Tests.dll
 C:\Users\Jamie\source\repos\sewy44-personal-public\CarDealership\CarDealership\GuildCars\GuildCars.Tests\obj\Debug\GuildCars.Tests.pdb
+C:\Users\Jamie\source\repos\sewy44-personal-public\CarDealership\CarDealership\GuildCars\GuildCars.Tests\bin\Debug\System.Web.Mvc.dll
+C:\Users\Jamie\source\repos\sewy44-personal-public\CarDealership\CarDealership\GuildCars\GuildCars.Tests\bin\Debug\System.Web.WebPages.dll
+C:\Users\Jamie\source\repos\sewy44-personal-public\CarDealership\CarDealership\GuildCars\GuildCars.Tests\bin\Debug\System.Web.WebPages.Razor.dll
+C:\Users\Jamie\source\repos\sewy44-personal-public\CarDealership\CarDealership\GuildCars\GuildCars.Tests\bin\Debug\System.Web.Razor.dll
+C:\Users\Jamie\source\repos\sewy44-personal-public\CarDealership\CarDealership\GuildCars\GuildCars.Tests\bin\Debug\Microsoft.Web.Infrastructure.dll
+C:\Users\Jamie\source\repos\sewy44-personal-public\CarDealership\CarDealership\GuildCars\GuildCars.Tests\bin\Debug\System.Web.WebPages.Deployment.dll
+C:\Users\Jamie\source\repos\sewy44-personal-public\CarDealership\CarDealership\GuildCars\GuildCars.Tests\bin\Debug\System.Web.Mvc.xml
+C:\Users\Jamie\source\repos\sewy44-personal-public\CarDealership\CarDealership\GuildCars\GuildCars.Tests\bin\Debug\System.Web.WebPages.xml
+C:\Users\Jamie\source\repos\sewy44-personal-public\CarDealership\CarDealership\GuildCars\GuildCars.Tests\bin\Debug\System.Web.WebPages.Razor.xml
+C:\Users\Jamie\source\repos\sewy44-personal-public\CarDealership\CarDealership\GuildCars\GuildCars.Tests\bin\Debug\System.Web.Razor.xml
+C:\Users\Jamie\source\repos\sewy44-personal-public\CarDealership\CarDealership\GuildCars\GuildCars.Tests\bin\Debug\System.Web.WebPages.Deployment.xml
