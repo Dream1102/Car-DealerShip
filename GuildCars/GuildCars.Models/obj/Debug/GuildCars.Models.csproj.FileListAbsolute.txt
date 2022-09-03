@@ -10,3 +10,9 @@ C:\Users\Jamie\source\repos\sewy44-personal-public\CarDealership\CarDealership\G
 C:\Users\Jamie\source\repos\sewy44-personal-public\CarDealership\CarDealership\GuildCars\GuildCars.Models\obj\Debug\GuildCars.Models.csproj.CoreCompileInputs.cache
 C:\Users\Jamie\source\repos\sewy44-personal-public\CarDealership\CarDealership\GuildCars\GuildCars.Models\obj\Debug\GuildCars.Models.dll
 C:\Users\Jamie\source\repos\sewy44-personal-public\CarDealership\CarDealership\GuildCars\GuildCars.Models\obj\Debug\GuildCars.Models.pdb
+C:\Users\sewy4\source\repos\sewy44-personal-public\CarDealership\GuildCars\GuildCars.Models\bin\Debug\GuildCars.Models.dll
+C:\Users\sewy4\source\repos\sewy44-personal-public\CarDealership\GuildCars\GuildCars.Models\bin\Debug\GuildCars.Models.pdb
+C:\Users\sewy4\source\repos\sewy44-personal-public\CarDealership\GuildCars\GuildCars.Models\obj\Debug\GuildCars.Models.csproj.AssemblyReference.cache
+C:\Users\sewy4\source\repos\sewy44-personal-public\CarDealership\GuildCars\GuildCars.Models\obj\Debug\GuildCars.Models.csproj.CoreCompileInputs.cache
+C:\Users\sewy4\source\repos\sewy44-personal-public\CarDealership\GuildCars\GuildCars.Models\obj\Debug\GuildCars.Models.dll
+C:\Users\sewy4\source\repos\sewy44-personal-public\CarDealership\GuildCars\GuildCars.Models\obj\Debug\GuildCars.Models.pdb
